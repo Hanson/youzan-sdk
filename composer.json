@@ -1,0 +1,16 @@
+{
+    "name": "hanson/youzan",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "pimple/pimple": "^3.0",
+        "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",
+        "doctrine/cache": "^1.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HanSon",
+            "email": "h@hanc.cc"
+        }
+    ]
+}
