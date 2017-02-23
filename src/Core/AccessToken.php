@@ -28,4 +28,32 @@ class AccessToken
         $this->cache = $cache;
     }
 
+    public function signature($params)
+    {
+        ksort($params);
+
+        $text = '';
+        foreach ($params as $key => $value) {
+            $text .= $key . $value;
+        }
+
+        return md5($this->secret . $text . $this->secret);
+    }
+
+    public function signatureParam($method, $args, $version = '1.0')
+    {
+        $params = [
+            'app_id' => $this->appId,
+            'method' => $method,
+            'timestamp' => date('Y-m-d H:i:s'),
+            'v' => $version,
+        ];
+
+        $args = array_merge($args, $params);
+
+        $args['sign'] = $this->signature($args);
+
+        return $args;
+    }
+
 }

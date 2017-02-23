@@ -15,6 +15,13 @@ use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Cache\Cache as CacheInterface;
 
+/**
+ * Class Application
+ *
+ * @property \Hanson\Youzan\Core\AccessToken $access_token
+ * @property \Hanson\Youzan\Product\Product $product
+ *
+ */
 class Application extends Container
 {
     /**
@@ -29,6 +36,10 @@ class Application extends Container
     public function __construct($config)
     {
         parent::__construct();
+
+        $this['config'] = function () use ($config) {
+            return new Config($config);
+        };
 
         $this->registerProviders();
         $this->registerBase();
