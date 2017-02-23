@@ -9,8 +9,8 @@
 namespace Hanson\Youzan\Core;
 
 
-use GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\RequestInterface;
+use Hanson\Youzan\Core\Exceptions\HttpException;
+use Illuminate\Support\Collection;
 
 class AbstractAPI
 {
@@ -27,6 +27,13 @@ class AbstractAPI
      * @var AccessToken
      */
     protected $accessToken;
+
+    /**
+     * The Api version
+     *
+     * @var string
+     */
+    protected $version = '1.0';
 
     /**
      * Constructor.
@@ -52,6 +59,27 @@ class AbstractAPI
     }
 
     /**
+     * Parse JSON from response and check error.
+     *
+     * @param string $method
+     * @param $api
+     * @param array $args
+     * @return mixed
+     */
+    public function parseJSON($method, $api, array $args)
+    {
+        $http = $this->getHttp();
+
+        $args[1] = $this->accessToken->signatureParam($api, $args[1], $this->version);
+
+        $result = json_decode(call_user_func_array([$http, $method], $args), true);
+
+        $this->checkAndThrow($result);
+
+        return new Collection($result);
+    }
+
+    /**
      * Return the http instance.
      *
      * @return Http
@@ -66,24 +94,27 @@ class AbstractAPI
     }
 
     /**
-     * Parse JSON from response and check error.
+     * Check the array data errors, and Throw exception when the contents contains error.
      *
-     * @param $api
-     * @param $url
-     * @param $params
-     * @param string $method
-     * @param string $version
-     * @return mixed
-     * @internal param array $args
+     * @param array $content
+     * @throws HttpException
      */
-    public function parseJSON($method, $api, $url, $params, $version = '1.0')
+    protected function checkAndThrow(array $content)
     {
-        $http = $this->getHttp();
+        if (isset($content['error_response'])) {
+            throw new HttpException($content['error_response']['msg'], $content['error_response']['code']);
+        }
+    }
 
-        $params = $this->accessToken->signatureParam($api, $params, $version);
-
-        $result = call_user_func_array([$http, $method], [$url, $params]);
-
-        return json_decode($result, true);
+    /**
+     * set the api version
+     *
+     * @param $version
+     * @return $this
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+        return $this;
     }
 }

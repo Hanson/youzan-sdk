@@ -21,5 +21,10 @@
         "psr-4": {
             "Hanson\\Youzan\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hanson\\Youzan\\Tests\\": "tests/"
+        }
     }
 }

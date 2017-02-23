@@ -56,18 +56,28 @@ class Http
      * @param array $queries
      * @return string
      */
-    public function upload($url, array $files = [], array $form = [], array $queries = [])
+    public function upload($url, array $form = [], array $files = [], array $queries = [])
     {
         $multipart = [];
         foreach ($files as $name => $path) {
-            $multipart[] = [
-                'name' => $name,
-                'contents' => fopen($path, 'r'),
-            ];
+            if (is_array($path)){
+                foreach ($path as $item) {
+                    $multipart[] = [
+                        'name' => $name . '[]',
+                        'contents' => fopen($item, 'r'),
+                    ];
+                }
+            }else{
+                $multipart[] = [
+                    'name' => $name,
+                    'contents' => fopen($path, 'r'),
+                ];
+            }
         }
         foreach ($form as $name => $contents) {
             $multipart[] = compact('name', 'contents');
         }
+
         return $this->request($url, 'POST', ['query' => $queries, 'multipart' => $multipart]);
     }
 
