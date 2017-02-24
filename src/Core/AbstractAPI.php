@@ -76,7 +76,7 @@ class AbstractAPI
 
         $this->checkAndThrow($result);
 
-        return new Collection($result);
+        return $result;
     }
 
     /**

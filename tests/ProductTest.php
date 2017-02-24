@@ -85,22 +85,57 @@ class ProductTest extends YouzanBaseTest
         return $result;
     }
 
-    /**
-     * @param array $product
-     * @return mixed
-     * @depends testListing
-     */
-    public function testGet(array $product)
+    public function testGet()
     {
         $result = $this->app->product->get([
             'outer_id' => '123'
         ]);
-        print_r($result);
 
-//        $this->assertEquals($result[0]['num_iid'], $product['num_iid']);
+        print_r($result->pluck('num_iid'));
 
+        $this->assertEquals($result[0]['outer_id'], 123);
 
         return $result;
+    }
+
+    public function testGetInventory()
+    {
+        $result = $this->app->product->getInventory([
+            'q' => 'update'
+        ]);
+
+        $this->assertTrue(is_array($result->toArray()));
+    }
+
+    public function testGetOnSale()
+    {
+        $result = $this->app->product->getOnSale([
+            'q' => 'update'
+        ]);
+
+        $this->assertTrue(is_array($result->toArray()));
+    }
+
+    public function testBatchListing()
+    {
+        $result = $this->app->product->batchListing([
+            'num_iids' => '327359948'
+        ]);
+
+        print_r($result);
+
+        $this->assertTrue($result);
+    }
+
+    public function testBatchDelisting()
+    {
+        $result = $this->app->product->batchDelisting([
+            'num_iids' => '327359948'
+        ]);
+
+        print_r($result);
+
+        $this->assertTrue($result);
     }
 
 }
