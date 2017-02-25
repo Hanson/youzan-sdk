@@ -11,6 +11,10 @@ class ProductTest extends YouzanBaseTest
             'title' => 'test' . rand(),
             'price' => rand(),
             'post_fee' => '0',
+            'sku_outer_ids' => '123,124',
+            'sku_prices' => '3.00,40000.00',
+            'sku_quantities' => '3,4',
+            'sku_properties' => '颜色:黄色;尺寸:M,颜色:黄色;尺寸:S'
         ], [
             'images' => [
                 __DIR__ . '/img/head.jpg',
@@ -98,20 +102,24 @@ class ProductTest extends YouzanBaseTest
         return $result;
     }
 
-    public function testGetInventory()
+    public function testGeDelisting()
     {
-        $result = $this->app->product->getInventory([
+        $result = $this->app->product->getDelisting([
             'q' => 'update'
         ]);
+
+        print_r($result->pluck('num_iid'));
 
         $this->assertTrue(is_array($result->toArray()));
     }
 
-    public function testGetOnSale()
+    public function testGetListing()
     {
-        $result = $this->app->product->getOnSale([
+        $result = $this->app->product->getListing([
             'q' => 'update'
         ]);
+
+        print_r($result->pluck('num_iid'));
 
         $this->assertTrue(is_array($result->toArray()));
     }
@@ -119,10 +127,8 @@ class ProductTest extends YouzanBaseTest
     public function testBatchListing()
     {
         $result = $this->app->product->batchListing([
-            'num_iids' => '327359948'
+            'num_iids' => '327358847,327589695'
         ]);
-
-        print_r($result);
 
         $this->assertTrue($result);
     }
@@ -130,10 +136,45 @@ class ProductTest extends YouzanBaseTest
     public function testBatchDelisting()
     {
         $result = $this->app->product->batchDelisting([
-            'num_iids' => '327359948'
+            'num_iids' => '327358847,327589695'
         ]);
 
-        print_r($result);
+        $this->assertTrue($result);
+    }
+
+    public function testFind()
+    {
+        $result = $this->app->product->find([
+            'num_iid' => '327803086'
+        ]);
+
+        $this->assertEquals($result['num_iid'], '327803086');
+    }
+
+    public function testGetSku()
+    {
+        $result = $this->app->product->getSku([
+            'num_iid' => '327803086',
+            'outer_id' => '124'
+        ]);
+
+        $this->assertEquals($result[0]['num_iid'], '327803086');
+    }
+
+    public function testUpdateSku()
+    {
+        $result = $this->app->product->updateSku([
+            'num_iid' => '327803086',
+            'sku_id' => '36125593',
+            'price' => '1000.00'
+        ]);
+
+        $this->assertEquals($result['price'], '1000.00');
+    }
+
+    public function testDelete()
+    {
+        $result = $this->app->product->delete('327358934');
 
         $this->assertTrue($result);
     }

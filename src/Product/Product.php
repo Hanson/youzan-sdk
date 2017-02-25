@@ -21,6 +21,8 @@ class Product extends AbstractAPI
     const API_GET_SKU = 'https://open.youzan.com/api/entry/kdt.skus.custom/1.0.0/get';
     const API_ADD = 'https://open.youzan.com/api/entry/kdt.item/1.0.0/add';
     const API_UPDATE = 'https://open.youzan.com/api/entry/kdt.item/1.0.0/update';
+    const API_UPDATE_SKU = 'https://open.youzan.com/api/entry/kdt.item.sku/1.0.0/update';
+    const API_DELETE = 'https://open.youzan.com/api/entry/kdt.item/1.0.0/delete';
     const API_LISTING = 'https://open.youzan.com/api/entry/kdt.item.update/1.0.0/listing';
     const API_DELISTING = 'https://open.youzan.com/api/entry/kdt.item.update/1.0.0/delisting';
     const API_INVENTORY = 'https://open.youzan.com/api/entry/kdt.items.inventory/1.0.0/get';
@@ -42,12 +44,10 @@ class Product extends AbstractAPI
      *
      * @param $params
      * @return Collection
-     *
-     * @todo test
      */
     public function find($params)
     {
-        $product = $this->parseJSON('post', 'kdt.item..get', [self::API_FIND, $params]);
+        $product = $this->parseJSON('post', 'kdt.item.get', [self::API_FIND, $params]);
 
         return new Collection($product['response']['item']);
     }
@@ -70,12 +70,10 @@ class Product extends AbstractAPI
      *
      * @param $params
      * @return Collection
-     *
-     * @todo test
      */
     public function getSku($params)
     {
-        $product = $this->parseJSON('post', 'kdt.iteskusms.custom.get', [self::API_GET_SKU, $params]);
+        $product = $this->parseJSON('post', 'kdt.skus.custom.get', [self::API_GET_SKU, $params]);
 
         return new Collection($product['response']['skus']);
     }
@@ -106,6 +104,32 @@ class Product extends AbstractAPI
         $product = $this->parseJSON('upload', 'kdt.item.update', [self::API_UPDATE, $params, $files]);
 
         return new Collection($product['response']['item']);
+    }
+
+    /**
+     * update a sku of product
+     *
+     * @param $params
+     * @return Collection
+     */
+    public function updateSku($params)
+    {
+        $product = $this->parseJSON('post', 'kdt.item.sku.update', [self::API_UPDATE_SKU, $params]);
+
+        return new Collection($product['response']['sku']);
+    }
+
+    /**
+     * delete a product
+     *
+     * @param $numIid
+     * @return mixed
+     */
+    public function delete($numIid)
+    {
+        $product = $this->parseJSON('post', 'kdt.item.delete', [self::API_DELETE, ['num_iid' => $numIid]]);
+
+        return $product['response']['is_success'];
     }
 
     /**
@@ -140,7 +164,7 @@ class Product extends AbstractAPI
      * @param $params
      * @return mixed
      */
-    public function getInventory($params)
+    public function getDelisting($params)
     {
         $product = $this->parseJSON('post', 'kdt.items.inventory.get', [self::API_INVENTORY, $params]);
 
@@ -153,13 +177,19 @@ class Product extends AbstractAPI
      * @param $params
      * @return mixed
      */
-    public function getOnSale($params)
+    public function getListing($params)
     {
         $product = $this->parseJSON('post', 'kdt.items.onsale.get', [self::API_ON_SALE, $params]);
 
         return new Collection($product['response']['items']);
     }
 
+    /**
+     * put a list of product on sale
+     *
+     * @param $params
+     * @return mixed
+     */
     public function batchListing($params)
     {
         $product = $this->parseJSON('post', 'kdt.items.update.listing', [self::API_BATCH_LISTING, $params]);
@@ -167,6 +197,12 @@ class Product extends AbstractAPI
         return $product['response']['is_success'];
     }
 
+    /**
+     * put a list of product off sale
+     *
+     * @param $params
+     * @return mixed
+     */
     public function batchDelisting($params)
     {
         $product = $this->parseJSON('post', 'kdt.items.update.delisting', [self::API_BATCH_DELISTING, $params]);
