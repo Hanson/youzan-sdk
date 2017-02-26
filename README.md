@@ -15,7 +15,7 @@ composer require hanson/youzan-sdk
 
 ## Usage
 
-基本使用（以服务端为例）:
+基本使用（以添加产品为例）:
 
 ```php
 <?php
@@ -23,8 +23,8 @@ composer require hanson/youzan-sdk
 use Hanson\Youzan\Foundation\Application;
 
 $app = new Application([
-    'app_id' => '124286ccc1da10f3de',
-    'secret' => 'd8715349e02f84ec3e1e9005ffc2485f'
+    'app_id' => 'your app_id',
+    'secret' => 'your app_secret'
 ]);
 
 $result = $app->product->add([
