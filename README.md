@@ -15,7 +15,7 @@ composer require hanson/youzan-sdk
 
 ## Usage
 
-基本使用（以服务端为例）:
+基本使用（以添加产品为例）:
 
 ```php
 <?php
@@ -23,8 +23,8 @@ composer require hanson/youzan-sdk
 use Hanson\Youzan\Foundation\Application;
 
 $app = new Application([
-    'app_id' => '124286ccc1da10f3de',
-    'secret' => 'd8715349e02f84ec3e1e9005ffc2485f'
+    'app_id' => 'your app_id',
+    'secret' => 'your app_secret'
 ]);
 
 $result = $app->product->add([
@@ -48,8 +48,14 @@ print_r($result);
 - [wiki](https://github.com/HanSon/youzan-sdk/wiki)
 
 ## Support
+已实现
+- [x] 产品
 
-此 SDK 只实现了最基础的（产品、订单和商品分类），如有其它API需求可提issue或者参考下方的 `Contribution` 一起完善。
+- [x] 订单
+
+- [x] 商品类目
+
+如有其它API需求可提issue或者参考下方的 `Contribution` 一起共同完善。
 
 ## Contribution
 
