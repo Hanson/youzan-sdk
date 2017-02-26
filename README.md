@@ -59,7 +59,7 @@ print_r($result);
 
 ## Contribution
 
-- [Contribution Guide](https://github.com/HanSon/youzan-sdk/wiki/contribution)
+- [Contribution Guide](https://github.com/HanSon/youzan-sdk/wiki/%E5%8F%82%E4%B8%8E%E8%B4%A1%E7%8C%AE)
 
 ## License
 
