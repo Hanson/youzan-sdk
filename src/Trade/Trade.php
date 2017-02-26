@@ -90,7 +90,7 @@ class Trade extends AbstractAPI
      * @param $params
      * @return Collection
      */
-    public function get($params)
+    public function get($params = [])
     {
         $result = $this->parseJSON('post', 'kdt.trades.sold.get', [self::API_GET, $params]);
 

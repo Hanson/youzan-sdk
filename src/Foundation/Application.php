@@ -20,6 +20,8 @@ use Doctrine\Common\Cache\Cache as CacheInterface;
  *
  * @property \Hanson\Youzan\Core\AccessToken $access_token
  * @property \Hanson\Youzan\Product\Product $product
+ * @property \Hanson\Youzan\Trade\Trade $trade
+ * @property \Hanson\Youzan\Tag\Tag $tag
  *
  */
 class Application extends Container
@@ -31,6 +33,8 @@ class Application extends Container
      */
     protected $providers = [
         ServiceProviders\ProductServiceProvider::class,
+        ServiceProviders\TradeServiceProvider::class,
+        ServiceProviders\TagServiceProvider::class,
     ];
 
     public function __construct($config)

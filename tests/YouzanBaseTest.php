@@ -17,8 +17,8 @@ class YouzanBaseTest extends TestCase
         parent::__construct();
 
         $this->app = new Application([
-            'app_id' => '124286ccc1da10f3de',
-            'secret' => 'd8715349e02f84ec3e1e9005ffc2485f'
+            'app_id' => '',
+            'secret' => ''
         ]);
     }
 

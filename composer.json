@@ -1,5 +1,5 @@
 {
-    "name": "hanson/youzan",
+    "name": "hanson/youzan-sdk",
     "license": "MIT",
     "authors": [
         {
@@ -8,6 +8,7 @@
         }
     ],
     "require": {
+        "php": ">=5.5.0",
         "guzzlehttp/guzzle": "^6.2",
         "pimple/pimple": "^3.0",
         "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",

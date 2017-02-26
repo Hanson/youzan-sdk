@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanson\Youzan\Category;
+namespace Hanson\Youzan\Tag;
 
 
 use Hanson\Youzan\Core\AbstractAPI;
@@ -34,7 +34,7 @@ class Tag extends AbstractAPI
      * @param $params
      * @return Collection
      */
-    public function paginate($params)
+    public function paginate($params = [])
     {
         $result = $this->parseJSON('post', 'kdt.itemcategories.tags.getpage', [self::API_GET_BY_PAGE, $params]);
 
@@ -49,7 +49,7 @@ class Tag extends AbstractAPI
      */
     public function get($isSort = false)
     {
-        $result = $this->parseJSON('post', 'kdt.itemcategories.tags.get', [self::API_GET, ['is_sort' => $isSort]]);
+        $result = $this->parseJSON('post', 'kdt.itemcategories.tags.get', [self::API_GET, ['is_sort' => $isSort ? 1 : 0]]);
 
         return new Collection($result['response']['tags']);
     }
@@ -61,9 +61,9 @@ class Tag extends AbstractAPI
      */
     public function getCategories()
     {
-        $result = $this->parseJSON('post', 'kdt.itemcategories.get', [self::API_GET_CATEGORY]);
+        $result = $this->parseJSON('post', 'kdt.itemcategories.get', [self::API_GET_CATEGORY, []]);
 
-        return new Collection($result['response']['tags']);
+        return new Collection($result['response']['categories']);
     }
 
     /**
@@ -87,9 +87,9 @@ class Tag extends AbstractAPI
      */
     public function delete($id)
     {
-        $result = $this->parseJSON('post', 'kdt.itemcategories.tag.delete', [self::API_ADD, ['tag_id' => $id]]);
+        $result = $this->parseJSON('post', 'kdt.itemcategories.tag.delete', [self::API_DELETE, ['tag_id' => $id]]);
 
-        return new $result['response']['is_success'];
+        return $result['response']['is_success'];
     }
 
 }
