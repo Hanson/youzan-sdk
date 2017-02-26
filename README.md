@@ -10,7 +10,7 @@
 ## Installation
 
 ```
-composer require hanson/youzan-sdk
+composer require "hanson/youzan-sdk:dev-master"
 ```
 
 ## Usage
