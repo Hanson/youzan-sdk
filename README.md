@@ -48,8 +48,14 @@ print_r($result);
 - [wiki](https://github.com/HanSon/youzan-sdk/wiki)
 
 ## Support
+已实现
+- [x] 产品
 
-此 SDK 只实现了最基础的（产品、订单和商品分类），如有其它API需求可提issue或者参考下方的 `Contribution` 一起完善。
+- [x] 订单
+
+- [x] 商品类目
+
+如有其它API需求可提issue或者参考下方的 `Contribution` 一起共同完善。
 
 ## Contribution
 
