@@ -11,7 +11,7 @@ class Trade extends AbstractAPI
 
     const API_UPDATE_MEMO = 'https://open.youzan.com/api/entry/kdt.trade.memo/1.0.0/update';
     const API_SELF_APPLY = 'https://open.youzan.com/api/entry/kdt.trade.selffetchcode/1.0.0/apply';
-    const API_GET = 'https://open.youzan.com/api/entry/kdt.trades.sold/1.0.0/get';
+    const API_GET = 'https://open.youzan.com/api/entry/kdt.trades.sold/2.0.0/get';
     const API_FIND = 'https://open.youzan.com/api/entry/kdt.trade/2.0.0/get';
     const API_SIGN_CLOSE = 'https://open.youzan.com/api/entry/kdt.trade.sign/1.0.0/close';
     const API_SIGN_ITEM_CLOSE = 'https://open.youzan.com/api/entry/kdt.trade.sign.item/1.0.0/close';
@@ -92,7 +92,7 @@ class Trade extends AbstractAPI
      */
     public function get($params = [])
     {
-        $result = $this->parseJSON('post', 'kdt.trades.sold.get', [self::API_GET, $params]);
+        $result = $this->setVersion('2.0.0')->parseJSON('post', 'kdt.trades.sold.get', [self::API_GET, $params]);
 
         return new Collection($result['response']);
     }
