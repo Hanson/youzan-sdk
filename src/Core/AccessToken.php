@@ -13,6 +13,9 @@ use Doctrine\Common\Cache\Cache;
 
 class AccessToken
 {
+    public $appId;
+
+    public $secret;
 
     /**
      * Constructor.
