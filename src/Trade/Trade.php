@@ -18,6 +18,7 @@ class Trade extends AbstractAPI
     const API_SELF_GET = 'https://open.youzan.com/api/entry/kdt.trade.selffetchcode/1.0.0/get';
     const API_GET_BY_USER = 'https://open.youzan.com/api/entry/kdt.trades.sold/1.0.0/getforouter';
     const API_CLOSE = 'https://open.youzan.com/api/entry/kdt.trade/1.0.0/close';
+    const API_SOLD_GET = 'https://open.youzan.com/api/entry/youzan.trades.sold/3.0.0/get';
 
     /**
      * update a memo for a trade
@@ -134,6 +135,19 @@ class Trade extends AbstractAPI
         $result = $this->parseJSON('post', 'kdt.trade.close', [self::API_CLOSE, $params]);
 
         return new Collection($result['response']['trade']);
+    }
+
+    /**
+     * 查询卖家已卖出的交易列表.
+     *
+     * @param array $params
+     * @return mixed
+     */
+    public function getSold($params = [])
+    {
+        $result = $this->setVersion('3.0.0')->parseJSON('post', 'youzan.trades.sold.get', [self::API_SOLD_GET, $params]);
+
+        return $result['response'];
     }
 
 }
