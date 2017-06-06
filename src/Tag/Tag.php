@@ -30,7 +30,7 @@ class Tag extends AbstractAPI
 
     /**
      * get tags by page
-     * 
+     *
      * @param $params
      * @return Collection
      */

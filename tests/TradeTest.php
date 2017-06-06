@@ -10,7 +10,7 @@ class TradeTest extends YouzanBaseTest
     public function testUpdateMemo()
     {
         $result = $this->app->trade->updateMemo([
-            'tid' => 'E20170226142018070961857',
+            'tid' => 'E20170524160447099958247',
             'memo' => 'test youzan',
             'flag' => 3
         ]);
