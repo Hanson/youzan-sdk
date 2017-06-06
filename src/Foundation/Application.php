@@ -22,6 +22,7 @@ use Doctrine\Common\Cache\Cache as CacheInterface;
  * @property \Hanson\Youzan\Product\Product $product
  * @property \Hanson\Youzan\Trade\Trade $trade
  * @property \Hanson\Youzan\Tag\Tag $tag
+ * @property \Hanson\Youzan\Shop\Shop $shop
  *
  */
 class Application extends Container
@@ -35,6 +36,7 @@ class Application extends Container
         ServiceProviders\ProductServiceProvider::class,
         ServiceProviders\TradeServiceProvider::class,
         ServiceProviders\TagServiceProvider::class,
+        ServiceProviders\ShopServiceProvider::class,
     ];
 
     public function __construct($config)
