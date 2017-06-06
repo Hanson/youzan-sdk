@@ -15,7 +15,7 @@ class AccessToken
 {
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param string                       $appId
      * @param string                       $secret
