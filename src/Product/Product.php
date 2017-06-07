@@ -187,11 +187,12 @@ class Product extends AbstractAPI
     /**
      * put a list of product on sale
      *
-     * @param $params
+     * @param $num_iids
      * @return mixed
      */
-    public function batchListing($params)
+    public function batchListing($num_iids)
     {
+        $params = is_array($num_iids) ? $num_iids : ['num_iids' => $num_iids];
         $product = $this->parseJSON('post', 'kdt.items.update.listing', [self::API_BATCH_LISTING, $params]);
 
         return $product['response']['is_success'];
@@ -200,11 +201,12 @@ class Product extends AbstractAPI
     /**
      * put a list of product off sale
      *
-     * @param $params
+     * @param $num_iids
      * @return mixed
      */
-    public function batchDelisting($params)
+    public function batchDelisting($num_iids)
     {
+        $params = is_array($num_iids) ? $num_iids : ['num_iids' => $num_iids];
         $product = $this->parseJSON('post', 'kdt.items.update.delisting', [self::API_BATCH_DELISTING, $params]);
 
         return $product['response']['is_success'];
