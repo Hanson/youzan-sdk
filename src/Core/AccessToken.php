@@ -18,7 +18,7 @@ class AccessToken
     public $secret;
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param string                       $appId
      * @param string                       $secret
