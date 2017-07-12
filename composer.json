@@ -1,0 +1,26 @@
+{
+    "name": "hanson/youzan-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HanSon",
+            "email": "h@hanc.cc"
+        }
+    ],
+    "require": {
+        "hanson/foundation-sdk": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hanson\\Youzan\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hanson\\Youzan\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "vlucas/phpdotenv": "^2.4"
+    }
+}
