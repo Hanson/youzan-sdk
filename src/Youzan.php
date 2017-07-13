@@ -10,7 +10,6 @@ use Hanson\Foundation\Foundation;
  * Class Youzan
  * @package Hanson\Youzan
  *
- * @property \Hanson\Youzan\Shop\Shop   $shop
  * @property \Hanson\Youzan\Api   $api
  */
 class Youzan extends Foundation
@@ -19,10 +18,6 @@ class Youzan extends Foundation
     const PERSONAL = 'PERSONAL';
 
     const PLATFORM = 'PLATFORM';
-
-    protected $providers = [
-        Shop\ServiceProvider::class,
-    ];
 
     public function __construct($config)
     {
