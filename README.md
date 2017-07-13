@@ -66,6 +66,8 @@ $result = $youzan->request('youzan.shop.create', [
 $youzan = $youzan->setShopId('19144834');
 $result = $youzan->request('youzan.shop.get');
 
+// 获取订单
+$result = $youzan->request('youzan.trade.get', ['tid' => 'xxxxx']);
 ```
 
 ## Help
