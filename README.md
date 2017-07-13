@@ -1,6 +1,6 @@
 # Youzan SDK
 
-最优雅的有赞SDK
+最优雅的有赞SDK (有赞 3.0.0)
 
 ## Requirement
 
@@ -10,56 +10,67 @@
 ## Installation
 
 ```
-composer require "hanson/youzan-sdk:dev-master"
+composer require "hanson/youzan-sdk"
 ```
 
 ## Usage
 
-基本使用（以添加产品为例）:
+### 自用型应用
 
 ```php
 <?php
 
-use Hanson\Youzan\Foundation\Application;
-
-$app = new Application([
-    'app_id' => 'your app_id',
-    'secret' => 'your app_secret'
+$youzan = new \Hanson\Youzan\Youzan([
+    'client_id' => '',
+    'client_secret' => '',
+    'type' => \Hanson\Youzan\Youzan::PERSONAL, // 自用型应用
+    'debug' => true, // 调试模式
+    'kdt_id' => '19144834', // 店铺ID
+    'log' => [
+        'name' => 'youzan',
+        'file' => __DIR__.'/youzan.log',
+        'level'      => 'debug',
+        'permission' => 0777,
+    ]
 ]);
 
-$result = $app->product->add([
-    'title' => '产品名称',
-    'price' => '899.99',
-    'post_fee' => '0',
-    ],[
-        'images' => [
-            __DIR__ . '/img/head.jpg',
-            __DIR__ . '/img/gcu.jpg',
-        ]
-    ]
-);
+// 获取门店信息
+$result = $youzan->request('youzan.shop.get');
+```
 
-print_r($result);
+### 平台型应用
+
+```php
+<?php
+
+$youzan = new \Hanson\Youzan\Youzan([
+    'client_id' => '',
+    'client_secret' => '',
+    'type' => \Hanson\Youzan\Youzan::PLATFORM,
+    'debug' => true,
+//    'kdt_id' => '19144834', // 可选,用于控制某个门店
+    'log' => [
+        'name' => 'youzan',
+        'file' => __DIR__.'/youzan.log',
+        'level'      => 'debug',
+        'permission' => 0777,
+    ]
+]);
+
+// 平台创建门店
+$result = $youzan->request('youzan.shop.create', [
+    'name' => 'HanSon的教学课堂',
+]);
+
+// 平台已授权门店
+$youzan = $youzan->setShopId('19144834');
+$result = $youzan->request('youzan.shop.get');
 
 ```
 
-## Documention
+## Help
 
-- [wiki](https://github.com/HanSon/youzan-sdk/wiki)
-
-## Support
-已实现
-- [x] 产品
-
-- [x] 订单
-
-- [x] 商品类目
-
-如有其它API需求可提issue或者参考下方的 `Contribution` 一起共同完善。
-
-## Contribution
-
-- [Contribution Guide](https://github.com/HanSon/youzan-sdk/wiki/%E5%8F%82%E4%B8%8E%E8%B4%A1%E7%8C%AE)
+QQ 群： 570769430
 
 ## License
 
