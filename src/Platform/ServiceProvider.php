@@ -20,12 +20,8 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['platform.access_token'] = function ($pimple) {
-            return new AccessToken($pimple['config']['client_id'], $pimple['config']['client_secret']);
-        };
-
-        $pimple['platform'] = function ($pimple) {
-            return new Platform($pimple['platform.access_token']);
+        $pimple['access_token'] = function ($pimple) {
+            return new AccessToken($pimple['config']['client_id'], $pimple['config']['client_secret'], $pimple['config']->get('kdt_id'));
         };
     }
 }

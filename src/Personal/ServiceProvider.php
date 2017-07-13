@@ -23,8 +23,5 @@ class ServiceProvider implements ServiceProviderInterface
         $pimple['access_token'] = function ($pimple) {
             return new AccessToken($pimple['config']['client_id'], $pimple['config']['client_secret'], $pimple['config']['kdt_id']);
         };
-        $pimple['personal'] = function ($pimple) {
-            return new Personal($pimple['access_token']);
-        };
     }
 }

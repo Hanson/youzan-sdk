@@ -23,10 +23,11 @@ class AccessToken extends AbstractAccessToken
 
     const TOKEN_API = 'https://open.youzan.com/oauth/token';
 
-    public function __construct($clientId, $secret)
+    public function __construct($clientId, $secret, $shopId = null)
     {
         $this->appId = $this->clientId = $clientId;
         $this->secret = $secret;
+        $this->appId = $this->shopId = $shopId;
     }
 
     /**
@@ -41,8 +42,6 @@ class AccessToken extends AbstractAccessToken
             'client_secret' => $this->secret,
             'grant_type' => 'authorize_platform',
         ];
-
-        echo 'shop id: '.$this->shopId . '<br>';
 
         $params = $this->shopId ? array_merge($params, ['kdt_id' => $this->shopId]) : $params;
 
