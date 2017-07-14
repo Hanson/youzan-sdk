@@ -1,6 +1,8 @@
 # Youzan SDK
 
-最优雅的有赞SDK (有赞 3.0.0)
+有赞SDK (有赞 3.0.0)
+
+base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 
 ## Requirement
 
