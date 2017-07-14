@@ -38,6 +38,37 @@ $youzan = new \Hanson\Youzan\Youzan([
 $result = $youzan->request('youzan.shop.get');
 ```
 
+### 工具型应用
+
+```php
+<?php
+
+$youzan = new \Hanson\Youzan\Youzan([
+    'client_id' => '',
+    'client_secret' => '',
+    'debug' => true,
+    'redirect_uri' => 'http://xxx.com',
+    'log' => [
+        'name' => 'youzan',
+        'file' => __DIR__.'/youzan.log',
+        'level'      => 'debug',
+        'permission' => 0777,
+    ]
+]);
+
+// 获取授权 URL
+$url = $youzan->oauth->authorizationUrl();
+
+// 重定向到授权页面
+$youzan->oauth->authorizationRedirect();
+
+// 在重定向页面，你可以获取此次授权账号的 token
+$token = $youzan->oauth->getAccessToken();
+
+// 也可以通过上面得到的 refresh_token 去刷新令牌
+$token = $youzan->oauth->refreshToken($token['refresh_token']);
+```
+
 ### 平台型应用
 
 ```php
@@ -63,7 +94,7 @@ $result = $youzan->request('youzan.shop.create', [
 ]);
 
 // 平台已授权门店
-$youzan = $youzan->setShopId('19144834');
+$youzan = $youzan->setKdtId('19144834');
 $result = $youzan->request('youzan.shop.get');
 
 // 获取订单

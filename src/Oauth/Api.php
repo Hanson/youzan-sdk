@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Hanson\Youzan;
+namespace Hanson\Youzan\Oauth;
 
 
 use Hanson\Foundation\AbstractAccessToken;
 use Hanson\Foundation\AbstractAPI;
+use Hanson\Youzan\Api as BaseApi;
 
-class Api extends AbstractAPI
+class Api extends BaseApi
 {
 
     /**
@@ -16,11 +17,6 @@ class Api extends AbstractAPI
     protected $accessToken;
 
     const API = 'https://open.youzan.com/api/oauthentry/';
-
-    public function __construct(AbstractAccessToken $accessToken)
-    {
-        $this->accessToken = $accessToken;
-    }
 
     /**
      * 请求API

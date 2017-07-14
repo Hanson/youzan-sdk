@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Hanson\Youzan\Personal;
+namespace Hanson\Youzan;
 
 
 use Pimple\Container;
@@ -21,7 +21,20 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         $pimple['access_token'] = function ($pimple) {
-            return new AccessToken($pimple['config']['client_id'], $pimple['config']['client_secret'], $pimple['config']['kdt_id']);
+            $accessToken = new AccessToken(
+                $pimple['config']['client_id'],
+                $pimple['config']['client_secret'],
+                $pimple['config']->get('kdt_id')
+            );
+
+            $accessToken->setType($pimple['config']['type']);
+
+            return $accessToken;
         };
+
+        $pimple['api'] = function ($pimple) {
+            return new Api($pimple['access_token']);
+        };
+
     }
 }

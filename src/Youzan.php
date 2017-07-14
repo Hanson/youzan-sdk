@@ -11,6 +11,8 @@ use Hanson\Foundation\Foundation;
  * @package Hanson\Youzan
  *
  * @property \Hanson\Youzan\Api   $api
+ * @property \Hanson\Youzan\AccessToken   $access_token
+ * @property \Hanson\Youzan\Oauth\Oauth   $oauth
  */
 class Youzan extends Foundation
 {
@@ -19,29 +21,18 @@ class Youzan extends Foundation
 
     const PLATFORM = 'PLATFORM';
 
-    public function __construct($config)
-    {
-        switch ($config['type']) {
-            case self::PERSONAL:
-                $this->providers[] = Personal\ServiceProvider::class;
-                break;
-            case self::PLATFORM:
-                $this->providers[] = Platform\ServiceProvider::class;
-                break;
-        }
-
-        parent::__construct($config);
-
-        $this->api = new Api($this['access_token']);
-    }
+    protected $providers = [
+        ServiceProvider::class,
+        Oauth\ServiceProvider::class
+    ];
 
     /**
-     * @param $shopId
-     * @return $this
+     * @param $kdtId
+     * @return Youzan
      */
-    public function setShopId($shopId)
+    public function setKdtId($kdtId)
     {
-        $this['access_token']->setShopId($shopId);
+        $this->access_token->setKdtId($kdtId);
 
         return $this;
     }
