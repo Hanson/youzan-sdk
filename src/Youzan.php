@@ -11,8 +11,9 @@ use Hanson\Foundation\Foundation;
  * @package Hanson\Youzan
  *
  * @property \Hanson\Youzan\Api   $api
- * @property \Hanson\Youzan\AccessToken   $access_token
- * @property \Hanson\Youzan\Oauth\Oauth   $oauth
+ * @property \Hanson\Youzan\AccessToken     $access_token
+ * @property \Hanson\Youzan\Oauth\PreAuth   $pre_auth
+ * @property \Hanson\Youzan\Oauth\Oauth     $oauth
  */
 class Youzan extends Foundation
 {

@@ -59,16 +59,21 @@ $youzan = new \Hanson\Youzan\Youzan([
 ]);
 
 // 获取授权 URL
-$url = $youzan->oauth->authorizationUrl();
+$url = $youzan->pre_auth->authorizationUrl();
 
 // 重定向到授权页面
-$youzan->oauth->authorizationRedirect();
+$youzan->pre_auth->authorizationRedirect();
 
 // 在重定向页面，你可以获取此次授权账号的 token
-$token = $youzan->oauth->getAccessToken();
+$token = $youzan->pre_auth->getAccessToken();
 
 // 也可以通过上面得到的 refresh_token 去刷新令牌
-$token = $youzan->oauth->refreshToken($token['refresh_token']);
+$token = $youzan->pre_auth->refreshToken($token['refresh_token']);
+
+// 创建授权应用
+$youzan = $youzan->oauth->createAuthorization($token['token']);
+
+$result = $youzan->request('youzan.shop.get');
 ```
 
 ### 平台型应用

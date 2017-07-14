@@ -34,12 +34,12 @@ class ServiceProvider implements ServiceProviderInterface
             return $accessToken;
         };
 
-//        $pimple['oauth.api'] = function ($pimple) {
-//            return
-//        }
+        $pimple['pre_auth'] = function ($pimple) {
+            return new PreAuth($pimple['oauth.access_token']);
+        };
 
         $pimple['oauth'] = function ($pimple) {
-            return new Oauth($pimple['oauth.access_token']);
+            return new Oauth($pimple);
         };
     }
 }

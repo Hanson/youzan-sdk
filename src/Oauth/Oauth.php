@@ -4,75 +4,37 @@
 namespace Hanson\Youzan\Oauth;
 
 
-class Oauth extends Api
+use Hanson\Youzan\Youzan;
+
+class Oauth
 {
 
-    const AUTHORIZE_API = 'https://open.youzan.com/oauth/authorize?';
-
-
     /**
-     * 重定向至授权 URL.
-     *
-     * @param $state
-     * @param null $scope
+     * @var Youzan
      */
-    public function authorizationRedirect($state = '', $scope = null)
-    {
-        $url = $this->authorizationUrl($state, $scope);
+    private $app;
 
-        header('Location:'.$url);
+    public function __construct(Youzan $app)
+    {
+        $this->app = $app;
     }
 
     /**
-     * 获取授权URL.
-     *
-     * @param string $state
-     * @param null $scope
-     * @return string
+     * @param $token
+     * @return Youzan
      */
-    public function authorizationUrl($state = '', $scope = null)
+    public function createAuthorization($token)
     {
-        return self::AUTHORIZE_API . http_build_query([
-            'client_id' => $this->accessToken->getClientId(),
-            'response_type' => 'code',
-            'state' => $state,
-            'redirect_uri' => $this->accessToken->getRedirectUri(),
-            'scope' => $scope
-        ]);
-    }
+        $accessToken = new AccessToken(
+            $this->app['config']['client_id'],
+            $this->app['config']['client_secret']
+        );
 
-    /**
-     * 获取 access token
-     *
-     * @return mixed
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken->token([
-            'client_id' => $this->accessToken->getClientId(),
-            'client_secret' => $this->accessToken->getSecret(),
-            'grant_type' => 'authorization_code',
-            'code' => $this->accessToken->getRequest()->get('code'),
-            'redirect_uri' => $this->accessToken->getRedirectUri()
-        ]);
-    }
+        $accessToken->setToken($token);
 
-    /**
-     * 刷新令牌
-     *
-     * @param $refreshToken
-     * @param null $scope
-     * @return mixed
-     */
-    public function refreshToken($refreshToken, $scope = null)
-    {
-        return $this->accessToken->token([
-            'client_id' => $this->accessToken->getClientId(),
-            'client_secret' => $this->accessToken->getSecret(),
-            'grant_type' => 'refresh_token',
-            'refresh_token' => $refreshToken,
-            'scope' => $scope
-        ]);
+        $this->app->access_token = $accessToken;
+
+        return $this->app;
     }
 
 }
