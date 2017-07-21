@@ -41,7 +41,7 @@ class Api extends AbstractAPI
 
         $response = $files ? $http->upload($url, $params, $files) : $http->post($url, $params);
 
-        return strval($response->getBody());
+        return json_decode(strval($response->getBody()), true);
     }
 
     /**

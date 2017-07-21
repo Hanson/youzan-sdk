@@ -47,7 +47,7 @@ class Youzan extends Foundation
      * @param array $files
      * @return string
      */
-    public function request($method, $params = [], $version = '3.0.0', $files = [])
+    public function request($method, $params = [], $files = [], $version = '3.0.0')
     {
         return $this->api->request($method, $params, $version, $files);
     }
