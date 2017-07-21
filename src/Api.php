@@ -26,10 +26,11 @@ class Api extends AbstractAPI
      * 请求API
      *
      * @param $method
-     * @param $params
+     * @param array $params
      * @param string $version
      * @param array $files
      * @return string
+     * @throws YouzanException
      */
     public function request($method, $params = [], $version = '3.0.0', $files = [])
     {
@@ -41,7 +42,13 @@ class Api extends AbstractAPI
 
         $response = $files ? $http->upload($url, $params, $files) : $http->post($url, $params);
 
-        return json_decode(strval($response->getBody()), true);
+        $result = json_decode(strval($response->getBody()), true);
+
+        if (isset($result['error_response'])) {
+            throw new YouzanException($result['error_response']['msg'], $result['error_response']['code']);
+        }
+
+        return $result;
     }
 
     /**
