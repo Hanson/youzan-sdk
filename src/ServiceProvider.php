@@ -36,5 +36,13 @@ class ServiceProvider implements ServiceProviderInterface
             return new Api($pimple['access_token']);
         };
 
+        $pimple['push'] = function ($pimple) {
+            return new Push(
+                $pimple['config']['client_id'],
+                $pimple['config']['client_secret'],
+                $pimple['request']
+            );
+        };
+
     }
 }
