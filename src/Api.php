@@ -29,7 +29,7 @@ class Api extends AbstractAPI
      * @param array $params
      * @param string $version
      * @param array $files
-     * @return string
+     * @return array
      * @throws YouzanException
      */
     public function request($method, $params = [], $version = '3.0.0', $files = [])
