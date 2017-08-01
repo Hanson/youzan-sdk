@@ -45,7 +45,7 @@ class Youzan extends Foundation
      * @param array $params
      * @param string $version
      * @param array $files
-     * @return string
+     * @return array
      */
     public function request($method, $params = [], $files = [], $version = '3.0.0')
     {
