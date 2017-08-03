@@ -48,7 +48,7 @@ class Api extends AbstractAPI
             throw new YouzanException($result['error_response']['msg'], $result['error_response']['code']);
         }
 
-        return $result;
+        return $result['response'];
     }
 
     /**
