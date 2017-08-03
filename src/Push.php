@@ -23,6 +23,9 @@ class Push
         $this->request = $request;
     }
 
+    /**
+     * @return array
+     */
     public function parse()
     {
         $data = $this->request->getContent();
@@ -30,6 +33,8 @@ class Push
         if($data) {
             var_dump(['code' => 0, 'msg' => 'success']);
         }
+
+        $data = json_decode($data, true);
 
         $this->checkSign($data);
 
