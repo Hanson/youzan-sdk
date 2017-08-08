@@ -67,6 +67,11 @@ class AccessToken extends AbstractAccessToken
         $this->kdtId = $kdtId;
         $this->appId = $clientId.$kdtId;
     }
+    
+    public function getToken($forceRefresh = false)
+    {
+        return $this->token ?: parent::getToken($forceRefresh);
+    }
 
     /**
      * Get token from remote server.
