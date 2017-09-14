@@ -23,6 +23,8 @@ class Youzan extends Foundation
 
     const PLATFORM = 'PLATFORM';
 
+    const TOOL = 'TOOL';
+
     protected $providers = [
         ServiceProvider::class,
         Oauth\ServiceProvider::class
