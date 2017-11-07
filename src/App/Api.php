@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Hanson\Youzan\Sso;
+namespace Hanson\Youzan\App;
 
 
 use Hanson\Youzan\Youzan;
@@ -24,6 +24,7 @@ class Api extends AbstractAPI
     }
 
     /**
+     * 请求 API
      * @param $method
      * @param array $params
      * @return mixed
@@ -31,15 +32,18 @@ class Api extends AbstractAPI
      */
     public function request($method, $params = [])
     {
-        $httpClient = $this->getHttp();
+        $http = $this->getHttp();
+
         $params['client_id'] = $this->app['config']['client_id'];
         $params['client_secret'] = $this->app['config']['client_secret'];
 
-        $response = $httpClient->post(Api::API . $method, $params);
+        $response = $http->post(Api::API . $method, $params);
         $result = json_decode(strval($response->getBody()), true);
+
         if (isset($result['error_response'])) {
             throw new YouzanException($result['error_response']['msg'], $result['error_response']['code']);
         }
+
         return $result;
     }
 

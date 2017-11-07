@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Hanson\Youzan\Sso;
+namespace Hanson\Youzan\App;
 
 
 use Pimple\Container;
@@ -20,11 +20,8 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['sso_api'] = function ($pimple) {
-            return new Api($pimple);
-        };
-        $pimple['app_auth'] = function ($pimple) {
-            return new AppAuth($pimple);
+        $pimple['sso'] = function ($pimple) {
+            return new Sso($pimple);
         };
     }
 }
