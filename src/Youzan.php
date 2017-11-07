@@ -14,6 +14,8 @@ use Hanson\Foundation\Foundation;
  * @property \Hanson\Youzan\AccessToken     $access_token
  * @property \Hanson\Youzan\Oauth\PreAuth   $pre_auth
  * @property \Hanson\Youzan\Oauth\Oauth     $oauth
+ * @property \Hanson\Youzan\Sso\AppAuth     $app_auth
+ * @property \Hanson\Youzan\Sso\Api         $sso_api
  * @property \Hanson\Youzan\Push            $push
  */
 class Youzan extends Foundation
@@ -27,7 +29,8 @@ class Youzan extends Foundation
 
     protected $providers = [
         ServiceProvider::class,
-        Oauth\ServiceProvider::class
+        Oauth\ServiceProvider::class,
+        Sso\ServiceProvider::class,
     ];
 
     /**
