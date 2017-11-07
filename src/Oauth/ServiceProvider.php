@@ -41,5 +41,9 @@ class ServiceProvider implements ServiceProviderInterface
         $pimple['oauth'] = function ($pimple) {
             return new Oauth($pimple);
         };
+
+        $pimple['app_auth'] = function ($pimple) {
+            return new AppAuth($pimple);
+        };
     }
 }

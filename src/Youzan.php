@@ -14,6 +14,7 @@ use Hanson\Foundation\Foundation;
  * @property \Hanson\Youzan\AccessToken     $access_token
  * @property \Hanson\Youzan\Oauth\PreAuth   $pre_auth
  * @property \Hanson\Youzan\Oauth\Oauth     $oauth
+ * @property \Hanson\Youzan\Oauth\AppAuth   $app_auth
  * @property \Hanson\Youzan\Push            $push
  */
 class Youzan extends Foundation
