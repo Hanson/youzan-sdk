@@ -25,6 +25,7 @@ class Api extends AbstractAPI
 
     /**
      * 请求 API
+     *
      * @param $method
      * @param array $params
      * @return mixed
