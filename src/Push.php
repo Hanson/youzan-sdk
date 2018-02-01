@@ -31,9 +31,10 @@ class Push
         $data = $this->request->getContent();
         
         $data = json_decode($data, true);
+        
+        echo json_encode(['code' => 0, 'msg' => 'success']);
 
         if ($data['test'] === true) {
-            echo json_encode(['code' => 0, 'msg' => 'success']);
             return;
         }
 
