@@ -33,7 +33,7 @@ class Push
         $data = json_decode($data, true);
 
         if ($data['test'] === true) {
-            var_dump(['code' => 0, 'msg' => 'success']);
+            echo json_encode(['code' => 0, 'msg' => 'success']);
             return;
         }
 
