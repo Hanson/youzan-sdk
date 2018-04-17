@@ -29,12 +29,14 @@ class Push
     public function parse()
     {
         $data = $this->request->getContent();
-
-        if($data) {
-            var_dump(['code' => 0, 'msg' => 'success']);
-        }
-
+        
         $data = json_decode($data, true);
+        
+        echo json_encode(['code' => 0, 'msg' => 'success']);
+
+        if ($data['test'] === true) {
+            return;
+        }
 
         $this->checkSign($data);
 

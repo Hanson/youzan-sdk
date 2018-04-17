@@ -12,7 +12,7 @@ base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 ## Installation
 
 ```
-composer require "hanson/youzan-sdk:dev-master"
+composer require hanson/youzan-sdk
 ```
 
 ## Usage
