@@ -44,8 +44,19 @@ class Api extends AbstractAPI
 
         $result = json_decode(strval($response->getBody()), true);
 
+        
+        if (empty($result)) {
+            //个别接口存在返回空正文的情况
+            throw new YouzanException('empty response', '-1');
+        }
+
         if (isset($result['error_response'])) {
-            throw new YouzanException($result['error_response']['msg'], $result['error_response']['code']);
+            // 有赞有些接口中返回的错误信息包含在msg里，有的返回message属性中。
+            $message = isset($result['error_response']['msg'])
+                            ? $result['error_response']['msg']
+                            : $result['error_response']['message'];
+
+            throw new YouzanException($message, $result['error_response']['code']);
         }
 
         return $result['response'];
