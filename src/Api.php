@@ -45,7 +45,12 @@ class Api extends AbstractAPI
         $result = json_decode(strval($response->getBody()), true);
 
         if (isset($result['error_response'])) {
-            throw new YouzanException($result['error_response']['msg'], $result['error_response']['code']);
+            // 有赞有些接口中返回的错误信息包含在msg里，有的返回message属性中。
+            $message = isset($result['error_response']['msg'])
+                            ? $result['error_response']['msg']
+                            : $result['error_response']['message'];
+
+            throw new YouzanException($message, $result['error_response']['code']);
         }
 
         return $result['response'];
