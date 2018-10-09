@@ -25,6 +25,7 @@ class Push
 
     /**
      * @return array
+     * @throws YouzanException
      */
     public function parse()
     {

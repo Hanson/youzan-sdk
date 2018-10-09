@@ -45,13 +45,6 @@ class AccessToken extends AbstractAccessToken
     protected $kdtId;
 
     /**
-     * Youzan sdk type.
-     *
-     * @var
-     */
-    protected $type;
-
-    /**
      * cache prefix.
      *
      * @var string
@@ -80,32 +73,14 @@ class AccessToken extends AbstractAccessToken
      */
     public function getTokenFromServer()
     {
-        $params = $this->type === Youzan::PERSONAL ? $this->personalTokenParams() : $this->platformTokenParams();
-
-        $response = $this->getHttp()->post(self::TOKEN_API, $params);
-
-        return json_decode(strval($response->getBody()), true);
-    }
-
-    private function personalTokenParams()
-    {
-        return [
+        $response = $this->getHttp()->post(self::TOKEN_API, [
             'client_id' => $this->clientId,
             'client_secret' => $this->secret,
             'grant_type' => 'silent',
             'kdt_id' => $this->kdtId,
-        ];
-    }
+        ]);
 
-    private function platformTokenParams()
-    {
-        $params = [
-            'client_id' => $this->clientId,
-            'client_secret' => $this->secret,
-            'grant_type' => 'authorize_platform',
-        ];
-
-        return $this->kdtId ? array_merge($params, ['kdt_id' => $this->kdtId]) : $params;
+        return json_decode(strval($response->getBody()), true);
     }
 
     /**
@@ -120,11 +95,6 @@ class AccessToken extends AbstractAccessToken
         if (isset($result['error'])) {
             throw new \Exception($result['error_description']);
         }
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**

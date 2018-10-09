@@ -16,6 +16,7 @@ class Sso extends Api
      * 初始化 token
      *
      * @return mixed
+     * @throws \Hanson\Youzan\YouzanException
      */
     public function initToken()
     {
@@ -28,6 +29,7 @@ class Sso extends Api
      * @param $open_user_id
      * @param array $params
      * @return mixed
+     * @throws \Hanson\Youzan\YouzanException
      */
     public function login($open_user_id, $params = [])
     {
@@ -41,6 +43,7 @@ class Sso extends Api
      *
      * @param $open_user_id
      * @return mixed
+     * @throws \Hanson\Youzan\YouzanException
      */
     public function logout($open_user_id)
     {

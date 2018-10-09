@@ -35,7 +35,7 @@ class ServiceProvider implements ServiceProviderInterface
         };
 
         $pimple['pre_auth'] = function ($pimple) {
-            return new PreAuth($pimple['oauth.access_token']);
+            return new PreAuth($pimple);
         };
 
         $pimple['oauth'] = function ($pimple) {

@@ -48,9 +48,4 @@ class Api extends AbstractAPI
         return $result;
     }
 
-    public function middlewares()
-    {
-        // TODO: Implement middlewares() method.
-    }
-
 }

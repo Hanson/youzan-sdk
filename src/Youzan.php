@@ -19,13 +19,6 @@ use Hanson\Foundation\Foundation;
  */
 class Youzan extends Foundation
 {
-
-    const PERSONAL = 'PERSONAL';
-
-    const PLATFORM = 'PLATFORM';
-
-    const TOOL = 'TOOL';
-
     protected $providers = [
         ServiceProvider::class,
         Oauth\ServiceProvider::class,
@@ -33,27 +26,41 @@ class Youzan extends Foundation
     ];
 
     /**
-     * @param $kdtId
-     * @return Youzan
+     * API请求
+     *
+     * @param $method
+     * @param array $params
+     * @param array $files
+     * @return array
+     * @throws YouzanException
      */
-    public function setKdtId($kdtId)
+    public function request($method, $params = [], $files = [])
     {
-        $this->access_token->setKdtId($kdtId);
+        return $this->api->request($method, $params, $files);
+    }
+
+    public function setVersion(string $version = null)
+    {
+        $this['config']['version'] = $version;
 
         return $this;
     }
 
     /**
-     * API请求
-     *
-     * @param $method
-     * @param array $params
-     * @param string $version
-     * @param array $files
-     * @return array
+     * @return mixed
+     * @throws YouzanException
      */
-    public function request($method, $params = [], $files = [], $version = '3.0.0')
+    public function getVersion()
     {
-        return $this->api->request($method, $params, $version, $files);
+        if (!$this['config']['version'] ?? null) {
+            throw new YouzanException('version cannot be null');
+        }
+
+        return $this['config']['version'];
+    }
+
+    public function getResponse()
+    {
+        return $this['config']['exception_as_array'] ?? true;
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-
 namespace Hanson\Youzan\Oauth;
 
+
+use Hanson\Youzan\Api;
 
 class PreAuth extends Api
 {
@@ -16,11 +17,16 @@ class PreAuth extends Api
      * @param $state
      * @param null $scope
      */
-    public function authorizationRedirect($state = '', $scope = null)
+    public function authorizationRedirect($state = 'state', $scope = null)
     {
         $url = $this->authorizationUrl($state, $scope);
 
         header('Location:'.$url);
+    }
+
+    private function accessToken()
+    {
+        return $this->youzan['oauth.access_token'];
     }
 
     /**
@@ -30,13 +36,13 @@ class PreAuth extends Api
      * @param null $scope
      * @return string
      */
-    public function authorizationUrl($state = '', $scope = null)
+    public function authorizationUrl($state = 'state', $scope = null)
     {
         return self::AUTHORIZE_API . http_build_query([
-            'client_id' => $this->accessToken->getClientId(),
+            'client_id' => $this->accessToken()->getClientId(),
             'response_type' => 'code',
             'state' => $state,
-            'redirect_uri' => $this->accessToken->getRedirectUri(),
+            'redirect_uri' => $this->accessToken()->getRedirectUri(),
             'scope' => $scope
         ]);
     }
@@ -44,16 +50,17 @@ class PreAuth extends Api
     /**
      * 获取 access token
      *
+     * @param null $code
      * @return mixed
      */
-    public function getAccessToken()
+    public function getAccessToken($code = null)
     {
-        return $this->accessToken->token([
-            'client_id' => $this->accessToken->getClientId(),
-            'client_secret' => $this->accessToken->getSecret(),
+        return $this->accessToken()->token([
+            'client_id' => $this->accessToken()->getClientId(),
+            'client_secret' => $this->accessToken()->getSecret(),
             'grant_type' => 'authorization_code',
-            'code' => $this->accessToken->getRequest()->get('code'),
-            'redirect_uri' => $this->accessToken->getRedirectUri()
+            'code' => $code ?? $this->accessToken()->getRequest()->get('code'),
+            'redirect_uri' => $this->accessToken()->getRedirectUri()
         ]);
     }
 
@@ -66,18 +73,13 @@ class PreAuth extends Api
      */
     public function refreshToken($refreshToken, $scope = null)
     {
-        return $this->accessToken->token([
-            'client_id' => $this->accessToken->getClientId(),
-            'client_secret' => $this->accessToken->getSecret(),
+        return $this->accessToken()->token([
+            'client_id' => $this->accessToken()->getClientId(),
+            'client_secret' => $this->accessToken()->getSecret(),
             'grant_type' => 'refresh_token',
             'refresh_token' => $refreshToken,
             'scope' => $scope
         ]);
-    }
-
-    public function createAuthorization($token)
-    {
-
     }
 
 }

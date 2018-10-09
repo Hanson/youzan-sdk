@@ -10,16 +10,16 @@ use Hanson\Foundation\AbstractAPI;
 class Api extends AbstractAPI
 {
 
-    /**
-     * @var AccessToken
-     */
-    protected $accessToken;
-
     const API = 'https://open.youzan.com/api/oauthentry/';
 
-    public function __construct(AbstractAccessToken $accessToken)
+    /**
+     * @var Youzan
+     */
+    protected $youzan;
+
+    public function __construct(Youzan $youzan)
     {
-        $this->accessToken = $accessToken;
+        $this->youzan = $youzan;
     }
 
     /**
@@ -27,33 +27,41 @@ class Api extends AbstractAPI
      *
      * @param $method
      * @param array $params
-     * @param string $version
      * @param array $files
      * @return array
      * @throws YouzanException
      */
-    public function request($method, $params = [], $version = '3.0.0', $files = [])
+    public function request($method, $params = [], $files = [])
     {
-        $url = $this->url($method, $version);
+        $url = $this->url($method);
 
         $http = $this->getHttp();
 
-        $params['access_token'] = $this->accessToken->getToken();
+        $params['access_token'] = $this->youzan['access_token']->getToken();
 
         $response = $files ? $http->upload($url, $params, $files) : $http->post($url, $params);
 
         $result = json_decode(strval($response->getBody()), true);
 
         if (isset($result['error_response'])) {
-            // 有赞有些接口中返回的错误信息包含在msg里，有的返回message属性中。
-            $message = isset($result['error_response']['msg'])
-                            ? $result['error_response']['msg']
-                            : $result['error_response']['message'];
-
-            throw new YouzanException($message, $result['error_response']['code']);
+            return $this->errorResponse($result);
         }
 
         return $result['response'];
+    }
+
+    public function errorResponse(array $result)
+    {
+        if ($this->youzan->getResponse()) {
+            return $result['error_response'];
+        } else {
+            // 有赞有些接口中返回的错误信息包含在msg里，有的返回message属性中。
+            $message = isset($result['error_response']['msg'])
+                ? $result['error_response']['msg']
+                : $result['error_response']['message'];
+
+            throw new YouzanException($message, $result['error_response']['code']);
+        }
     }
 
     /**
@@ -62,24 +70,16 @@ class Api extends AbstractAPI
      * @param $method
      * @param $version
      * @return string
+     * @throws YouzanException
      */
-    private function url($method, $version)
+    private function url($method)
     {
         $methodArray = explode('.', $method);
 
-        $method = '/' . $version . '/' . $methodArray[count($methodArray) - 1];
+        $method = '/' . $this->youzan->getVersion() . '/' . $methodArray[count($methodArray) - 1];
 
         array_pop($methodArray);
 
         return self::API . implode('.', $methodArray) . $method;
-    }
-
-    /**
-     * Push guzzle middleware before request.
-     *
-     * @return mixed
-     */
-    public function middlewares()
-    {
     }
 }

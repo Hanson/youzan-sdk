@@ -17,19 +17,6 @@ class AccessToken extends BaseAccessToken
 
     protected $redirectUri;
 
-    /**
-     * 获取 token from server.
-     *
-     * @param $params
-     * @return mixed
-     */
-    public function token($params)
-    {
-        $response = $this->getHttp()->post(self::TOKEN_API, $params);
-
-        return json_decode(strval($response->getBody()), true);
-    }
-
     public function setRequest(Request $request)
     {
         $this->request = $request;
