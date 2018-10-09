@@ -82,6 +82,23 @@ $youzan = $youzan->oauth->createAuthorization($token['token']);
 $result = $youzan->request('youzan.shop.get');
 ```
 
+### 消息推送
+
+```
+// 消息结构体
+$data = $youzan->push->parse();
+
+$response = $youzan->push->response();
+
+// $response 为 `Symfony\Component\HttpFoundation\Response` 实例
+// 对于需要直接输出响应的框架，或者原生 PHP 环境下
+$response->send();
+
+// 而 laravel 中直接返回即可：
+
+return $response;
+```
+
 ## Help
 
 QQ 群： 570769430
