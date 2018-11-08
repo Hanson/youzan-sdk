@@ -9,6 +9,7 @@ use Hanson\Foundation\AbstractAPI;
 
 class Api extends AbstractAPI
 {
+    use Helper;
 
     const API = 'https://open.youzan.com/api/oauthentry/';
 
@@ -47,7 +48,7 @@ class Api extends AbstractAPI
             return $this->errorResponse($result);
         }
 
-        return $result['response'];
+        return $this->toNull($result['response']);
     }
 
     public function errorResponse(array $result)
