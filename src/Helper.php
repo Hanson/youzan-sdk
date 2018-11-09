@@ -4,22 +4,22 @@
 namespace Hanson\Youzan;
 
 
-trait Helper
+class Helper
 {
-    public function toNull(array &$array)
+    public static function toNull(array &$array)
     {
         foreach ($array as &$item) {
             if (is_array($item)) {
-                $this->toNull($item);
+                self::toNull($item);
             } else {
-                $item = $this->transform($item);
+                $item = self::transform($item);
             }
         }
 
         return $array;
     }
 
-    public function transform($value)
+    public static function transform($value)
     {
         return is_string($value) && ($value === '' || $value === 'null') ? null : $value;
     }
