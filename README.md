@@ -88,6 +88,9 @@ $result = $youzan->request('youzan.shop.get');
 // 消息结构体
 $data = $youzan->push->parse();
 
+// 开发者自行选择性处理,把 "null" 与 "" 转为 null，建议使用
+// $data = Helper::toNull($data);
+
 $response = $youzan->push->response();
 
 // $response 为 `Symfony\Component\HttpFoundation\Response` 实例
