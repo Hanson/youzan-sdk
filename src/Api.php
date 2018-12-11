@@ -46,7 +46,7 @@ class Api extends AbstractAPI
             return $this->errorResponse($result);
         }
 
-        return Helper::toNull($result['response']);
+        return $result['response'] ? Helper::toNull($result['response']) : $result['response'];
     }
 
     public function errorResponse(array $result)
