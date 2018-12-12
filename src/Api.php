@@ -38,7 +38,7 @@ class Api extends AbstractAPI
 
         $params['access_token'] = $this->youzan['access_token']->getToken();
 
-        $response = $files ? $http->upload($url, $params, $files) : $http->post($url, $params);
+        $response = $files ? $http->upload($url, $params, $this->files($files)) : $http->post($url, $params);
 
         $result = json_decode(strval($response->getBody()), true);
 
@@ -47,6 +47,21 @@ class Api extends AbstractAPI
         }
 
         return $result['response'] ? Helper::toNull($result['response']) : $result['response'];
+    }
+
+    private function files(array &$files)
+    {
+        foreach ($files as $name => &$path) {
+            if (is_array($path)){
+                foreach ($path as &$item) {
+                    $item = ['contents' => $item, 'filename' => 'example'];
+                }
+            }else{
+                $item = ['contents' => $path, 'filename' => 'example'];
+            }
+        }
+
+        return $files;
     }
 
     public function errorResponse(array $result)
