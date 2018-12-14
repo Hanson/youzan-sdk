@@ -66,7 +66,7 @@ class Api extends AbstractAPI
     public function errorResponse(array $result)
     {
         if ($this->youzan->getResponse()) {
-            return $result['error_response'];
+            return $this->youzan->getRaw() ? $result : $result['error_response'];
         } else {
             // 有赞有些接口中返回的错误信息包含在msg里，有的返回message属性中。
             $message = isset($result['error_response']['msg'])
@@ -81,7 +81,6 @@ class Api extends AbstractAPI
      * 生成接口 URI
      *
      * @param $method
-     * @param $version
      * @return string
      * @throws YouzanException
      */
