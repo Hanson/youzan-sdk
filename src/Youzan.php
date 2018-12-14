@@ -32,7 +32,6 @@ class Youzan extends Foundation
      * @param array $params
      * @param array $files
      * @return array
-     * @throws YouzanException
      */
     public function request($method, $params = [], $files = [])
     {
