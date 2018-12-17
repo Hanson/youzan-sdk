@@ -35,8 +35,8 @@ class Api extends AbstractAPI
     {
         $http = $this->getHttp();
 
-        $params['client_id'] = $this->app['config']['client_id'];
-        $params['client_secret'] = $this->app['config']['client_secret'];
+        $params['client_id'] = $this->app->getConfig()['client_id'];
+        $params['client_secret'] = $this->app->getConfig()['client_secret'];
 
         $response = $http->post(Api::API . $method, $params);
         $result = json_decode(strval($response->getBody()), true);

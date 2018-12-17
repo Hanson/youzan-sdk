@@ -4,6 +4,7 @@
 namespace Hanson\Youzan\Oauth;
 
 
+use Hanson\Youzan\Youzan;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -21,24 +22,24 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
 
-        $pimple['oauth.access_token'] = function ($pimple) {
+        $pimple['oauth.access_token'] = function (Youzan $pimple) {
             $accessToken =  new AccessToken(
-                $pimple['config']['client_id'],
-                $pimple['config']['client_secret']
+                $pimple->getConfig()['client_id'],
+                $pimple->getConfig()['client_secret']
             );
 
             $accessToken->setRequest($pimple['request']);
 
-            $accessToken->setRedirectUri($pimple['config']->get('redirect_uri'));
+            $accessToken->setRedirectUri($pimple->getConfig()['redirect_uri'] ?? null);
 
             return $accessToken;
         };
 
-        $pimple['pre_auth'] = function ($pimple) {
+        $pimple['pre_auth'] = function (Youzan $pimple) {
             return new PreAuth($pimple);
         };
 
-        $pimple['oauth'] = function ($pimple) {
+        $pimple['oauth'] = function (Youzan $pimple) {
             return new Oauth($pimple);
         };
     }

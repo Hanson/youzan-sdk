@@ -40,7 +40,7 @@ class Youzan extends Foundation
 
     public function setVersion(string $version = null)
     {
-        $this['config']['version'] = $version;
+        $this->config['version'] = $version;
 
         return $this;
     }
@@ -51,20 +51,20 @@ class Youzan extends Foundation
      */
     public function getVersion()
     {
-        if (!$this['config']['version'] ?? null) {
+        if (!$this->getConfig()['version'] ?? null) {
             throw new YouzanException('version cannot be null');
         }
 
-        return $this['config']['version'];
+        return $this->getConfig()['version'];
     }
 
     public function getResponse()
     {
-        return $this['config']['exception_as_array'] ?? true;
+        return $this->getConfig()['exception_as_array'] ?? true;
     }
 
     public function getRaw()
     {
-        return $this['config']['raw_exception'] ?? false;
+        return $this->getConfig()['raw_exception'] ?? false;
     }
 }

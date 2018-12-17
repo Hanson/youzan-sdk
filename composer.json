@@ -8,8 +8,8 @@
         }
     ],
     "require": {
-        "hanson/foundation-sdk": "dev-master",
-        "ext-json": "*"
+        "ext-json": "*",
+        "hanson/foundation-sdk": "dev-master"
     },
     "autoload": {
         "psr-4": {

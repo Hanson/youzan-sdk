@@ -20,11 +20,11 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['access_token'] = function ($pimple) {
+        $pimple['access_token'] = function (Youzan $pimple) {
             $accessToken = new AccessToken(
-                $pimple['config']['client_id'],
-                $pimple['config']['client_secret'],
-                $pimple['config']['kdt_id']
+                $pimple->getConfig()['client_id'],
+                $pimple->getConfig()['client_secret'],
+                $pimple->getConfig()['kdt_id'] ?? null
             );
 
             return $accessToken;
@@ -34,10 +34,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new Api($pimple);
         };
 
-        $pimple['push'] = function ($pimple) {
+        $pimple['push'] = function (Youzan $pimple) {
             return new Push(
-                $pimple['config']['client_id'],
-                $pimple['config']['client_secret'],
+                $pimple->getConfig()['client_id'],
+                $pimple->getConfig()['client_secret'],
                 $pimple['request']
             );
         };

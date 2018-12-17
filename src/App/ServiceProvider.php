@@ -4,6 +4,7 @@
 namespace Hanson\Youzan\App;
 
 
+use Hanson\Youzan\Youzan;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -20,7 +21,7 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['sso'] = function ($pimple) {
+        $pimple['sso'] = function (Youzan $pimple) {
             return new Sso($pimple);
         };
     }
