@@ -62,9 +62,4 @@ class Youzan extends Foundation
     {
         return $this->getConfig()['exception_as_array'] ?? true;
     }
-
-    public function getRaw()
-    {
-        return $this->getConfig()['raw_exception'] ?? false;
-    }
 }

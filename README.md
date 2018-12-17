@@ -107,6 +107,15 @@ $response->send();
 return $response;
 ```
 
+## 升级指南
+
+### 3.* -> 4.*
+
+```
+* 构造函数设置了 `$config['exception_as_array'] = true;` 错误会返回包含 `error_response` 键名的数组（以前没有）
+* 上传图片为 `$youzan->request('youzan.materials.storage.platform.img.upload', [], ['image' => [$bytes]]);`
+```
+
 ## Help
 
 QQ 群： 570769430
