@@ -79,7 +79,12 @@ $token = $youzan->pre_auth->refreshToken($token['refresh_token']);
 // 创建授权应用
 $youzan = $youzan->oauth->createAuthorization($token['token']);
 
+// 店铺信息
 $result = $youzan->request('youzan.shop.get');
+
+// 上传图片（4.0以上版本）
+$result = $youzan->request('youzan.materials.storage.platform.img.upload', [], ['image' => [file_get_contents('https://i.loli.net/2018/12/17/5c17334487566.jpg')]]);
+
 ```
 
 ### 消息推送

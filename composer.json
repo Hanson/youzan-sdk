@@ -9,7 +9,7 @@
     ],
     "require": {
         "ext-json": "*",
-        "hanson/foundation-sdk": "dev-master"
+        "hanson/foundation-sdk": "^3.0"
     },
     "autoload": {
         "psr-4": {
