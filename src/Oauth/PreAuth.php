@@ -24,9 +24,6 @@ class PreAuth extends Api
         header('Location:'.$url);
     }
 
-    /**
-     * @return AccessToken
-     */
     private function accessToken()
     {
         return $this->youzan['oauth.access_token'];
@@ -58,17 +55,13 @@ class PreAuth extends Api
      */
     public function getAccessToken($code = null)
     {
-        $token = $this->accessToken()->token([
+        return $this->accessToken()->token([
             'client_id' => $this->accessToken()->getClientId(),
             'client_secret' => $this->accessToken()->getSecret(),
             'grant_type' => 'authorization_code',
             'code' => $code ?? $this->accessToken()->getRequest()->get('code'),
             'redirect_uri' => $this->accessToken()->getRedirectUri()
         ]);
-
-        $this->cacheToken($token);
-
-        return $token;
     }
 
     /**
@@ -80,31 +73,13 @@ class PreAuth extends Api
      */
     public function refreshToken($refreshToken, $scope = null)
     {
-        $token = $this->accessToken()->token([
+        return $this->accessToken()->token([
             'client_id' => $this->accessToken()->getClientId(),
             'client_secret' => $this->accessToken()->getSecret(),
             'grant_type' => 'refresh_token',
             'refresh_token' => $refreshToken,
             'scope' => $scope
         ]);
-
-        $this->cacheToken($token);
-
-        return $token;
-    }
-
-    /**
-     * 当 token 有效时缓存授权 token
-     *
-     * @param array $token
-     */
-    protected function cacheToken(array $token)
-    {
-        if (isset($token['access_token'])) {
-            $result = $this->youzan->oauth->createAuthorization($token['access_token'])->setVersion('3.0.0')->request('youzan.shop.get');
-
-            $this->youzan->oauth->createAuthorizationWithKdtId($result['id'], $token);
-        }
     }
 
 }

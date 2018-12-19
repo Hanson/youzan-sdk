@@ -79,9 +79,6 @@ $token = $youzan->pre_auth->refreshToken($token['refresh_token']);
 // 创建授权应用
 $youzan = $youzan->oauth->createAuthorization($token['token']);
 
-// 根据 kdt id 创建授权应用 （version > 4.0.1)
-$youzan = $youzan->oauth->createAuthorizationWithKdtId($kdtId, $token = []);
-
 // 店铺信息
 $result = $youzan->request('youzan.shop.get');
 
