@@ -58,6 +58,8 @@ class AccessToken extends AbstractAccessToken
         $this->clientId = $clientId;
         $this->secret = $secret;
         $this->kdtId = $kdtId;
+
+        // just for cache
         $this->appId = $clientId.$kdtId;
     }
     
