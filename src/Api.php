@@ -45,7 +45,7 @@ class Api extends AbstractAPI
             return $this->errorResponse($result);
         }
 
-        return $result['response'] ? Helper::toNull($result['response']) : $result['response'];
+        return is_array($result['response']) ? Helper::toNull($result['response']) : $result['response'];
     }
 
     private function files(array &$files)
