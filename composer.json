@@ -9,6 +9,7 @@
     ],
     "require": {
         "ext-json": "*",
+        "ext-mcrypt": "*",
         "hanson/foundation-sdk": "^3.0"
     },
     "autoload": {

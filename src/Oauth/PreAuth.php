@@ -58,7 +58,7 @@ class PreAuth extends Api
         return $this->accessToken()->token([
             'client_id' => $this->accessToken()->getClientId(),
             'client_secret' => $this->accessToken()->getSecret(),
-            'grant_type' => 'authorization_code',
+            'authorize_type' => 'authorization_code',
             'code' => $code ?? $this->accessToken()->getRequest()->get('code'),
             'redirect_uri' => $this->accessToken()->getRedirectUri()
         ]);
@@ -76,7 +76,7 @@ class PreAuth extends Api
         return $this->accessToken()->token([
             'client_id' => $this->accessToken()->getClientId(),
             'client_secret' => $this->accessToken()->getSecret(),
-            'grant_type' => 'refresh_token',
+            'authorize_type' => 'refresh_token',
             'refresh_token' => $refreshToken,
             'scope' => $scope
         ]);

@@ -51,7 +51,7 @@ class AccessToken extends AbstractAccessToken
      */
     protected $prefix = 'youzan.cache.';
 
-    const TOKEN_API = 'https://open.youzan.com/oauth/token';
+    const TOKEN_API = 'https://open.youzanyun.com/auth/token';
 
     public function __construct($clientId, $secret, $kdtId = null)
     {
@@ -76,7 +76,7 @@ class AccessToken extends AbstractAccessToken
         $response = $this->getHttp()->post(self::TOKEN_API, [
             'client_id' => $this->clientId,
             'client_secret' => $this->secret,
-            'grant_type' => 'silent',
+            'authorize_type' => 'silent',
             'kdt_id' => $this->kdtId,
         ]);
 

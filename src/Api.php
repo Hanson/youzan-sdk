@@ -4,12 +4,11 @@
 namespace Hanson\Youzan;
 
 
-use Hanson\Foundation\AbstractAccessToken;
 use Hanson\Foundation\AbstractAPI;
 
 class Api extends AbstractAPI
 {
-    const API = 'https://open.youzan.com/api/oauthentry/';
+    const API = 'https://open.youzanyun.com/api/';
 
     /**
      * @var Youzan
@@ -35,17 +34,17 @@ class Api extends AbstractAPI
 
         $http = $this->getHttp();
 
-        $params['access_token'] = $this->youzan['access_token']->getToken();
+        $url = $url .'?' . http_build_query(['access_token' => $this->youzan['access_token']->getToken()]);
 
         $response = $files ? $http->upload($url, $params, $this->files($files)) : $http->post($url, $params);
 
         $result = json_decode(strval($response->getBody()), true);
 
-        if (isset($result['error_response'])) {
+        if (isset($result['gw_err_resp'])) {
             return $this->errorResponse($result);
         }
 
-        return $result['response'] ? Helper::toNull($result['response']) : $result['response'];
+        return $result ? Helper::toNull($result) : $result;
     }
 
     private function files(array &$files)
@@ -69,11 +68,11 @@ class Api extends AbstractAPI
             return $result;
         } else {
             // 有赞有些接口中返回的错误信息包含在msg里，有的返回message属性中。
-            $message = isset($result['error_response']['msg'])
-                ? $result['error_response']['msg']
-                : $result['error_response']['message'];
+            $message = isset($result['gw_err_resp']['err_msg'])
+                ? $result['gw_err_resp']['err_msg']
+                : $result['gw_err_resp']['err_message'];
 
-            throw new YouzanException($message, $result['error_response']['code']);
+            throw new YouzanException($message, $result['gw_err_resp']['err_code']);
         }
     }
 
@@ -86,12 +85,6 @@ class Api extends AbstractAPI
      */
     private function url($method)
     {
-        $methodArray = explode('.', $method);
-
-        $method = '/' . $this->youzan->getVersion() . '/' . $methodArray[count($methodArray) - 1];
-
-        array_pop($methodArray);
-
-        return self::API . implode('.', $methodArray) . $method;
+        return self::API . $method . '/' . $this->youzan->getVersion();
     }
 }
