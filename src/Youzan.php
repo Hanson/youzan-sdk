@@ -16,6 +16,7 @@ use Hanson\Foundation\Foundation;
  * @property \Hanson\Youzan\Oauth\Oauth     $oauth
  * @property \Hanson\Youzan\App\Sso         $sso
  * @property \Hanson\Youzan\Push            $push
+ * @property \Hanson\Youzan\Oauth\Decrypt   $decrypt
  */
 class Youzan extends Foundation
 {

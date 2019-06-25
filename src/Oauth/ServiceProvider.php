@@ -42,5 +42,9 @@ class ServiceProvider implements ServiceProviderInterface
         $pimple['oauth'] = function (Youzan $pimple) {
             return new Oauth($pimple);
         };
+
+        $pimple['decrypt'] = function (Youzan $pimple) {
+            return new Decrypt($pimple);
+        };
     }
 }
