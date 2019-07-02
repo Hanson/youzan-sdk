@@ -35,7 +35,7 @@ class AccessToken extends AbstractAccessToken
      *
      * @var string
      */
-    protected $expiresJsonKey = 'expires_in';
+    protected $expiresJsonKey = 'expires';
 
     /**
      * Youzan kdt id.
@@ -73,14 +73,14 @@ class AccessToken extends AbstractAccessToken
      */
     public function getTokenFromServer()
     {
-        $response = $this->getHttp()->post(self::TOKEN_API, [
+        $response = $this->getHttp()->json(self::TOKEN_API, [
             'client_id' => $this->clientId,
             'client_secret' => $this->secret,
             'authorize_type' => 'silent',
-            'kdt_id' => $this->kdtId,
+            'grant_id' => $this->kdtId,
         ]);
 
-        return json_decode(strval($response->getBody()), true);
+        return json_decode(strval($response->getBody()), true)['data'];
     }
 
     /**
