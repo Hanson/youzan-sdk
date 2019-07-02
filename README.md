@@ -12,7 +12,8 @@ base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 ## Installation
 
 ```
-composer require hanson/youzan-sdk -vvv
+// 有赞云最新版支持
+composer require hanson/youzan-sdk:dev-master -vvv
 ```
 
 ## Usage
