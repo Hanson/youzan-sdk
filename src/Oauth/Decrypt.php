@@ -15,7 +15,11 @@ class Decrypt
 
     public function decrypt($data)
     {
-        return openssl_decrypt(urldecode(urldecode($data)), 'AES-128-CBC', substr($this->app->getConfig()['client_secret'], 0, 16), null, '0102030405060708');
+        $data = openssl_decrypt(urldecode($data), 'AES-128-CBC', substr($this->app->getConfig()['client_secret'], 0, 16), null, '0102030405060708');
+
+        if ($data) {
+            return json_decode($data, true);
+        }
     }
 
 }
