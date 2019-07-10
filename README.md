@@ -64,6 +64,8 @@ $youzan = new \Hanson\Youzan\Youzan([
         'permission' => 0777,
     ]
 ]);
+// 解密消息
+$youzan->decrypt->decrypt($message);
 
 // 获取授权 URL
 $url = $youzan->pre_auth->authorizationUrl();
