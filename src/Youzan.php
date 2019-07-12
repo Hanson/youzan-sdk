@@ -46,6 +46,18 @@ class Youzan extends Foundation
         return $this;
     }
 
+    public function setDev(bool $flag)
+    {
+        $this->config['is_dev'] = $flag;
+
+        return $this;
+    }
+
+    public function getDev()
+    {
+        return $this->getConfig()['is_dev'] ?? false;
+    }
+
     /**
      * @return mixed
      * @throws YouzanException
