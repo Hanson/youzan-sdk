@@ -67,6 +67,9 @@ $youzan = new \Hanson\Youzan\Youzan([
 // 解密消息
 $youzan->decrypt->decrypt($message);
 
+// 使用配置中的 prod_client_secret 进行解密
+$youzan->decrypt->decryptWithProd($message);
+
 // 获取授权 URL
 $url = $youzan->pre_auth->authorizationUrl();
 
