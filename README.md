@@ -13,7 +13,7 @@ base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 
 ```
 // 有赞云最新版支持
-composer require hanson/youzan-sdk:dev-master -vvv
+composer require hanson/youzan-sdk -vvv
 ```
 
 ## Usage
@@ -53,8 +53,8 @@ $result = $youzan->setVersion('3.0.0')->request('youzan.shop.get');
 $youzan = new \Hanson\Youzan\Youzan([
     'client_id' => '',
     'client_secret' => '',
-    'dev_client_id' => '',
-    'dev_client_secret' => '',
+    'dev_client_id' => '工具型有容器的开发环境 client id', // 仅在 is_dev=true 时有用
+    'dev_client_secret' => '工具型有容器的开发环境 client secret', // 仅在 is_dev=true 时有用
     'is_dev' => true, // 默认 false
     'debug' => true,
     'redirect_uri' => 'http://xxx.com',
@@ -73,7 +73,7 @@ $youzan->decrypt->decrypt($message);
 /**
 * 切换开发模式
  * 
- * 新版有赞云工具型应用中，同一应用测试环境与正式环境的 client_id 和 client_secret都不一样，故此添加了 dev_client_id，dev_client_secret 和此方法，用于切换不同环境下的开发，默认为false，正式开发可以不调用此方法
+ * 新版有赞云工具型有容器应用中，同一应用测试环境与正式环境的 client_id 和 client_secret都不一样，故此添加了 dev_client_id，dev_client_secret 和此方法，用于切换不同环境下的开发，默认为false，正式开发可以不调用此方法
  */
 $youzan->setDev(true);
 
