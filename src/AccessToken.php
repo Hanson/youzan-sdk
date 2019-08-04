@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Hanson\Youzan;
-
 
 use Hanson\Foundation\AbstractAccessToken;
 
 class AccessToken extends AbstractAccessToken
 {
-
     /**
      * Youzan client id.
      *
@@ -60,7 +57,7 @@ class AccessToken extends AbstractAccessToken
         $this->kdtId = $kdtId;
         $this->appId = $clientId.$kdtId;
     }
-    
+
     public function getToken($forceRefresh = false)
     {
         return $this->token ?: parent::getToken($forceRefresh);
@@ -74,10 +71,10 @@ class AccessToken extends AbstractAccessToken
     public function getTokenFromServer()
     {
         $response = $this->getHttp()->json(self::TOKEN_API, [
-            'client_id' => $this->clientId,
-            'client_secret' => $this->secret,
+            'client_id'      => $this->clientId,
+            'client_secret'  => $this->secret,
             'authorize_type' => 'silent',
-            'grant_id' => $this->kdtId,
+            'grant_id'       => $this->kdtId,
         ]);
 
         return json_decode(strval($response->getBody()), true)['data'];
@@ -87,8 +84,10 @@ class AccessToken extends AbstractAccessToken
      * Throw exception if token is invalid.
      *
      * @param $result
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function checkTokenResponse($result)
     {

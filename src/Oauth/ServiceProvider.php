@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Hanson\Youzan\Oauth;
-
 
 use Hanson\Youzan\Youzan;
 use Pimple\Container;
@@ -10,7 +8,6 @@ use Pimple\ServiceProviderInterface;
 
 class ServiceProvider implements ServiceProviderInterface
 {
-
     /**
      * Registers services on the given container.
      *
@@ -21,10 +18,9 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-
         $pimple['oauth.access_token'] = function (Youzan $pimple) {
             $config = $pimple->getConfig();
-            $accessToken =  new AccessToken(
+            $accessToken = new AccessToken(
                 $pimple->getDev() ? $config['dev_client_id'] : $config['client_id'],
                 $pimple->getDev() ? $config['dev_client_secret'] : $config['client_secret']
             );

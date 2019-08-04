@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Hanson\Youzan;
-
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class Push
 {
-
     /**
      * @var Request
      */
@@ -25,13 +22,14 @@ class Push
     }
 
     /**
-     * @return Response|array
      * @throws YouzanException
+     *
+     * @return Response|array
      */
     public function parse()
     {
         $data = $this->request->getContent();
-        
+
         $data = json_decode($data, true);
 
         if ($this->checkTest($data)) {
@@ -54,7 +52,7 @@ class Push
     {
         $sign = md5($this->clientId.$data['msg'].$this->secret);
 
-        if($sign != $data['sign']){
+        if ($sign != $data['sign']) {
             throw new YouzanException('签名不正确');
         }
     }
@@ -63,5 +61,4 @@ class Push
     {
         return Response::create(json_encode(['code' => 0, 'msg' => 'success']));
     }
-
 }

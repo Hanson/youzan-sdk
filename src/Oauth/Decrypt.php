@@ -14,9 +14,10 @@ class Decrypt
     }
 
     /**
-     * 解密消息
+     * 解密消息.
      *
      * @param $data
+     *
      * @return mixed
      */
     public function decrypt($data)
@@ -27,5 +28,4 @@ class Decrypt
             return json_decode($data, true);
         }
     }
-
 }

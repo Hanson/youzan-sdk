@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Hanson\Youzan;
-
 
 use Hanson\Foundation\Foundation;
 
 /**
- * Class Youzan
- * @package Hanson\Youzan
+ * Class Youzan.
  *
  * @property \Hanson\Youzan\Api   $api
  * @property \Hanson\Youzan\AccessToken     $access_token
@@ -32,6 +29,7 @@ class Youzan extends Foundation
      * @param $method
      * @param array $params
      * @param array $files
+     *
      * @return array
      */
     public function request($method, $params = [], $files = [])
@@ -59,8 +57,9 @@ class Youzan extends Foundation
     }
 
     /**
-     * @return mixed
      * @throws YouzanException
+     *
+     * @return mixed
      */
     public function getVersion()
     {
