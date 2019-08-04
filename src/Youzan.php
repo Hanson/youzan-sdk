@@ -16,6 +16,7 @@ use Hanson\Foundation\Foundation;
  * @property \Hanson\Youzan\Oauth\Oauth     $oauth
  * @property \Hanson\Youzan\App\Sso         $sso
  * @property \Hanson\Youzan\Push            $push
+ * @property \Hanson\Youzan\Oauth\Decrypt   $decrypt
  */
 class Youzan extends Foundation
 {
@@ -43,6 +44,18 @@ class Youzan extends Foundation
         $this->config['version'] = $version;
 
         return $this;
+    }
+
+    public function setDev(bool $flag)
+    {
+        $this->config['is_dev'] = $flag;
+
+        return $this;
+    }
+
+    public function getDev()
+    {
+        return $this->getConfig()['is_dev'] ?? false;
     }
 
     /**

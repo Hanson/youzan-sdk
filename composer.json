@@ -9,6 +9,7 @@
     ],
     "require": {
         "ext-json": "*",
+        "ext-openssl": "*",
         "hanson/foundation-sdk": "^3.0"
     },
     "autoload": {

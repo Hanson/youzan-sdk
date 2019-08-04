@@ -36,7 +36,7 @@ class Api extends AbstractAPI
 
         $url = $url .'?' . http_build_query(['access_token' => $this->youzan['access_token']->getToken()]);
 
-        $response = $files ? $http->upload($url, $params, $this->files($files)) : $http->post($url, $params);
+        $response = $files ? $http->upload($url, $params, $this->files($files)) : $http->json($url, $params ?: json_decode('{}'));
 
         $result = json_decode(strval($response->getBody()), true);
 

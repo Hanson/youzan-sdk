@@ -12,6 +12,7 @@ base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 ## Installation
 
 ```
+// 有赞云最新版支持
 composer require hanson/youzan-sdk -vvv
 ```
 
@@ -26,7 +27,7 @@ $youzan = new \Hanson\Youzan\Youzan([
     'client_id' => '',
     'client_secret' => '',
     'debug' => true, // 调试模式
-    'kdt_id' => '', // 店铺ID
+    'kdt_id' => '', // 店铺ID(仅自用模式下填写)
     'exception_as_array' => true, // 错误返回数组还是异常
     'version' => '4.0.0',
     'log' => [
@@ -52,6 +53,9 @@ $result = $youzan->setVersion('3.0.0')->request('youzan.shop.get');
 $youzan = new \Hanson\Youzan\Youzan([
     'client_id' => '',
     'client_secret' => '',
+    'dev_client_id' => '工具型有容器的开发环境 client id', // 仅在 is_dev=true 时有用
+    'dev_client_secret' => '工具型有容器的开发环境 client secret', // 仅在 is_dev=true 时有用
+    'is_dev' => true, // 默认 false
     'debug' => true,
     'redirect_uri' => 'http://xxx.com',
     'exception_as_array' => true,
@@ -63,6 +67,18 @@ $youzan = new \Hanson\Youzan\Youzan([
         'permission' => 0777,
     ]
 ]);
+// 解密消息
+$youzan->decrypt->decrypt($message);
+
+/**
+* 切换开发模式
+ * 
+ * 新版有赞云工具型有容器应用中，同一应用测试环境与正式环境的 client_id 和 client_secret都不一样，故此添加了 dev_client_id，dev_client_secret 和此方法，用于切换不同环境下的开发，默认为false，正式开发可以不调用此方法
+ */
+$youzan->setDev(true);
+
+// 使用配置中的 prod_client_secret 进行解密
+$youzan->decrypt->decryptWithProd($message);
 
 // 获取授权 URL
 $url = $youzan->pre_auth->authorizationUrl();
