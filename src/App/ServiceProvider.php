@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Hanson\Youzan\App;
-
 
 use Hanson\Youzan\Youzan;
 use Pimple\Container;
@@ -10,7 +8,6 @@ use Pimple\ServiceProviderInterface;
 
 class ServiceProvider implements ServiceProviderInterface
 {
-
     /**
      * Registers services on the given container.
      *

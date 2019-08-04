@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Hanson\Youzan\Oauth;
-
 
 use Hanson\Youzan\AccessToken as BaseAccessToken;
 use Symfony\Component\HttpFoundation\Request;
 
 class AccessToken extends BaseAccessToken
 {
-
     /**
      * @var Request
      */
@@ -21,6 +18,7 @@ class AccessToken extends BaseAccessToken
      * 获取 token from server.
      *
      * @param $params
+     *
      * @return mixed
      */
     public function token($params)
@@ -55,5 +53,4 @@ class AccessToken extends BaseAccessToken
     {
         return $this->request;
     }
-
 }

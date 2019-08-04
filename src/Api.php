@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Hanson\Youzan;
-
 
 use Hanson\Foundation\AbstractAPI;
 
@@ -21,11 +19,12 @@ class Api extends AbstractAPI
     }
 
     /**
-     * 请求API
+     * 请求API.
      *
      * @param $method
      * @param array $params
      * @param array $files
+     *
      * @return array
      */
     public function request($method, $params = [], $files = [])
@@ -34,7 +33,7 @@ class Api extends AbstractAPI
 
         $http = $this->getHttp();
 
-        $url = $url .'?' . http_build_query(['access_token' => $this->youzan['access_token']->getToken()]);
+        $url = $url.'?'.http_build_query(['access_token' => $this->youzan['access_token']->getToken()]);
 
         $response = $files ? $http->upload($url, $params, $this->files($files)) : $http->json($url, $params ?: json_decode('{}'));
 
@@ -50,11 +49,11 @@ class Api extends AbstractAPI
     private function files(array &$files)
     {
         foreach ($files as $name => &$path) {
-            if (is_array($path)){
+            if (is_array($path)) {
                 foreach ($path as &$item) {
                     $item = ['contents' => $item, 'filename' => 'example'];
                 }
-            }else{
+            } else {
                 $item = ['contents' => $path, 'filename' => 'example'];
             }
         }
@@ -77,14 +76,16 @@ class Api extends AbstractAPI
     }
 
     /**
-     * 生成接口 URI
+     * 生成接口 URI.
      *
      * @param $method
-     * @return string
+     *
      * @throws YouzanException
+     *
+     * @return string
      */
     private function url($method)
     {
-        return self::API . $method . '/' . $this->youzan->getVersion();
+        return self::API.$method.'/'.$this->youzan->getVersion();
     }
 }

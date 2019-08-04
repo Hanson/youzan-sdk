@@ -1,13 +1,10 @@
 <?php
 
-
 namespace Hanson\Youzan\App;
 
-
+use Hanson\Foundation\AbstractAPI;
 use Hanson\Youzan\Youzan;
 use Hanson\Youzan\YouzanException;
-use Hanson\Foundation\AbstractAPI;
-
 
 class Api extends AbstractAPI
 {
@@ -24,12 +21,14 @@ class Api extends AbstractAPI
     }
 
     /**
-     * 请求 API
+     * 请求 API.
      *
      * @param $method
      * @param array $params
-     * @return mixed
+     *
      * @throws YouzanException
+     *
+     * @return mixed
      */
     public function request($method, $params = [])
     {
@@ -38,7 +37,7 @@ class Api extends AbstractAPI
         $params['client_id'] = $this->app->getConfig()['client_id'];
         $params['client_secret'] = $this->app->getConfig()['client_secret'];
 
-        $response = $http->post(Api::API . $method, $params);
+        $response = $http->post(self::API.$method, $params);
         $result = json_decode(strval($response->getBody()), true);
 
         if (isset($result['error_response'])) {
@@ -47,5 +46,4 @@ class Api extends AbstractAPI
 
         return $result;
     }
-
 }

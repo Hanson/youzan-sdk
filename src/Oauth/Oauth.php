@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Hanson\Youzan\Oauth;
-
 
 use Hanson\Youzan\Youzan;
 
 class Oauth
 {
-
     /**
      * @var Youzan
      */
@@ -21,6 +18,7 @@ class Oauth
 
     /**
      * @param $token
+     *
      * @return Youzan
      */
     public function createAuthorization($token)
@@ -36,5 +34,4 @@ class Oauth
 
         return $this->app;
     }
-
 }
