@@ -1,6 +1,6 @@
 # Youzan SDK
 
-有赞SDK (支持有赞所有版本)
+有赞 SDK (支持有赞所有版本)
 
 base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 
@@ -67,12 +67,13 @@ $youzan = new \Hanson\Youzan\Youzan([
         'permission' => 0777,
     ]
 ]);
+
 // 解密消息
 $youzan->decrypt->decrypt($message);
 
 /**
 * 切换开发模式
- * 
+ *
  * 新版有赞云工具型有容器应用中，同一应用测试环境与正式环境的 client_id 和 client_secret都不一样，故此添加了 dev_client_id，dev_client_secret 和此方法，用于切换不同环境下的开发，默认为false，正式开发可以不调用此方法
  */
 $youzan->setDev(true);
@@ -100,12 +101,12 @@ $result = $youzan->request('youzan.shop.get');
 
 // 上传图片（4.0以上版本）
 $result = $youzan->request('youzan.materials.storage.platform.img.upload', [], ['image' => [file_get_contents('https://i.loli.net/2018/12/17/5c17334487566.jpg')]]);
-
 ```
 
 ### 消息推送
 
-```
+```php
+<?php
 // 消息结构体
 $data = $youzan->push->parse();
 
@@ -118,12 +119,18 @@ $response = $youzan->push->response();
 // 对于需要直接输出响应的框架，或者原生 PHP 环境下
 $response->send();
 
-// 而 laravel 中直接返回即可：
-
+// 而 Laravel 中直接返回即可：
 return $response;
 ```
 
 ## 升级指南
+
+### 4.* -> 5.*
+
+```
+* 4.* 的时候会对 api response 做处理，只返回 $response['response'] 部分
+* 5.* 以后默认原样返回 youzan api 的 response，不再二次处理，请注意更新业务代码
+```
 
 ### 3.* -> 4.*
 
