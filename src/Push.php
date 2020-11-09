@@ -40,19 +40,21 @@ class Push
 
         $this->checkSign($data);
 
-        $data['msg'] = json_decode(urldecode($data['msg']), true);
+        if (isset($data['msg'])) {
+            $data['msg'] = json_decode(urldecode($data['msg']), true);
+        }
 
         return $data;
     }
 
     public function checkTest($data)
     {
-        return $data['test'] === true;
+        return $data['test'] ?? false === true;
     }
 
     public function checkSign($data)
     {
-        $sign = md5($this->clientId.$data['msg'].$this->secret);
+        $sign = md5($this->clientId . ($data['msg'] ?? '') . $this->secret);
 
         if($sign != $data['sign']){
             throw new YouzanException('签名不正确');
