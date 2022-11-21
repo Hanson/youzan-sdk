@@ -23,14 +23,8 @@ class ServiceProvider implements ServiceProviderInterface
     {
 
         $pimple['oauth.access_token'] = function (Youzan $pimple) {
-            $config = $pimple->getConfig();
-            $accessToken =  new AccessToken(
-                $pimple->getDev() ? $config['dev_client_id'] : $config['client_id'],
-                $pimple->getDev() ? $config['dev_client_secret'] : $config['client_secret']
-            );
-
+            $accessToken =  new AccessToken($pimple);
             $accessToken->setRequest($pimple['request']);
-
             $accessToken->setRedirectUri($pimple->getConfig()['redirect_uri'] ?? null);
 
             return $accessToken;

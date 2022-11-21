@@ -25,10 +25,7 @@ class Oauth
      */
     public function createAuthorization($token)
     {
-        $accessToken = new AccessToken(
-            $this->app->getConfig()['client_id'],
-            $this->app->getConfig()['client_secret']
-        );
+        $accessToken = new AccessToken($this->app);
 
         $accessToken->setToken($token);
 

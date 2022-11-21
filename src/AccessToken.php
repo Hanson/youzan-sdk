@@ -53,12 +53,15 @@ class AccessToken extends AbstractAccessToken
 
     const TOKEN_API = 'https://open.youzanyun.com/auth/token';
 
-    public function __construct($clientId, $secret, $kdtId = null)
+    public function __construct(Youzan $app)
     {
-        $this->clientId = $clientId;
-        $this->secret = $secret;
-        $this->kdtId = $kdtId;
-        $this->appId = $clientId.$kdtId;
+        $this->app = $app;
+        $config = $app->getConfig();
+
+        $this->clientId = $app->getDev() ? $config['dev_client_id'] : $config['client_id'];
+        $this->secret = $app->getDev() ? $config['dev_client_secret'] : $config['client_secret'];
+        $this->kdtId = $config['kdt_id'] ?? null;
+        $this->appId = $this->clientId.$this->kdtId;
     }
     
     public function getToken($forceRefresh = false)

@@ -21,26 +21,15 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         $pimple['access_token'] = function (Youzan $pimple) {
-            $config = $pimple->getConfig();
-            $accessToken = new AccessToken(
-                $pimple->getDev() ? $config['dev_client_id'] : $config['client_id'],
-                $pimple->getDev() ? $config['dev_client_secret'] : $config['client_secret'],
-                $pimple->getConfig()['kdt_id'] ?? null
-            );
-
-            return $accessToken;
+            return new AccessToken($pimple);
         };
 
-        $pimple['api'] = function ($pimple) {
+        $pimple['api'] = function (Youzan $pimple) {
             return new Api($pimple);
         };
 
         $pimple['push'] = function (Youzan $pimple) {
-            return new Push(
-                $pimple->getConfig()['client_id'],
-                $pimple->getConfig()['client_secret'],
-                $pimple['request']
-            );
+            return new Push($pimple);
         };
 
     }

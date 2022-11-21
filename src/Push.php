@@ -17,11 +17,13 @@ class Push
     private $clientId;
     private $secret;
 
-    public function __construct($clientId, $secret, Request $request)
+    public function __construct(Youzan $app)
     {
-        $this->clientId = $clientId;
-        $this->secret = $secret;
-        $this->request = $request;
+        $config = $app->getConfig();
+
+        $this->clientId = $app->getDev() ? $config['dev_client_id'] : $config['client_id'];
+        $this->secret = $app->getDev() ? $config['dev_client_secret'] : $config['client_secret'];
+        $this->request = $app['request'];
     }
 
     /**
