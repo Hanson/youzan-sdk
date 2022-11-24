@@ -12,6 +12,8 @@ base on [foundation-sdk](https://github.com/HanSon/foundation-sdk)
 ## Installation
 
 ```
+// 目前仅支持 hanson/foundation-sdk 3.x
+composer require hanson/foundation-sdk:^3.1 -vvv
 // 有赞云最新版支持
 composer require hanson/youzan-sdk -vvv
 ```
